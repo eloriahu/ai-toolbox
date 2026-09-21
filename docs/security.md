@@ -6,4 +6,7 @@
 - Review an MCP server's source, command, network destinations, filesystem access, and data-retention policy before adding it.
 - Prefer least-privilege service accounts and read-only credentials where an integration supports them.
 - Keep automation systems reference-only until their instance URL, authentication method, and allowed actions are explicitly selected.
+- Prefer local optional finance packages when credentials or proprietary inputs are involved. Review data handling before using a hosted MCP or third-party proxy and do not send Bloomberg exports to one by default.
+- Capability reports may state that an environment variable is configured but must never print, log or persist its value.
+- Treat public-web adapters as unstable fallbacks. Preserve the underlying site, retrieval time and errors so a changed page cannot silently corrupt a model.
 - Rotate any credential that is accidentally committed, even if the commit is later removed.

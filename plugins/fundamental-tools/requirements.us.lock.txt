@@ -1,0 +1,1 @@
+edgartools==5.58.0

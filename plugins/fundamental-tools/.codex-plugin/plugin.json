@@ -1,0 +1,36 @@
+{
+  "name": "fundamental-tools",
+  "version": "0.1.0+codex.2026092101",
+  "description": "Auditable public-equity fundamentals, valuation scenarios and APAC filing adapters.",
+  "author": {
+    "name": "eloriahu",
+    "url": "https://github.com/eloriahu"
+  },
+  "homepage": "https://github.com/eloriahu/ai-toolbox/tree/main/plugins/fundamental-tools",
+  "repository": "https://github.com/eloriahu/ai-toolbox",
+  "license": "MIT",
+  "keywords": [
+    "fundamental-analysis",
+    "equity-research",
+    "valuation",
+    "financial-statements",
+    "apac"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Fundamental Tools",
+    "shortDescription": "Auditable statements, ratios, valuation and filing adapters.",
+    "longDescription": "Build a provenance-rich fundamental_pack/v1 from official filings, user data and optional finance libraries; calculate transparent operating metrics and DCF scenarios; and connect Japan, Korea, Taiwan, China/HK and US filing sources without hard dependencies.",
+    "developerName": "eloriahu",
+    "category": "Finance",
+    "capabilities": [
+      "Read",
+      "Analysis"
+    ],
+    "defaultPrompt": [
+      "Build an auditable fundamental review for this listed company.",
+      "Normalize these statements and show what changed.",
+      "Run valuation scenarios and identify the thesis falsifiers."
+    ]
+  }
+}

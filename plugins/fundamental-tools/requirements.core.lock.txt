@@ -1,0 +1,2 @@
+financetoolkit==2.2.0
+financedatabase==2.4.0

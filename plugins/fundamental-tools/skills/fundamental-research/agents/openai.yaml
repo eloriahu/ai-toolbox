@@ -1,0 +1,6 @@
+interface:
+  display_name: "Fundamental Research"
+  short_description: "Auditable statements, ratios and valuation"
+  default_prompt: "Use $fundamental-research to build a sourced fundamental pack and valuation review for this listed company."
+policy:
+  allow_implicit_invocation: true

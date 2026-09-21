@@ -51,6 +51,18 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Productivity"
+    },
+    {
+      "name": "fundamental-tools",
+      "source": {
+        "source": "local",
+        "path": "./plugins/fundamental-tools"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Finance"
     }
   ]
 }

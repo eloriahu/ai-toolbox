@@ -9,6 +9,15 @@ The lock file uses five classifications: runtime dependency, MCP integration, op
 | `browser-use/browser-use` | `research-tools` | Optional dependency | Pinned Python package for tasks that materially need a Python browser agent. |
 | `OpenBB-finance/OpenBB` | `finance-tools` | Optional dependency | Broader provider and standardized-query layer; install only for tasks that need it. |
 | `ranaroussi/yfinance` | `finance-tools` | Optional dependency | Powers the versioned, provenance-rich market snapshot adapter. |
+| `anthropics/financial-services` | `fundamental-tools` | Reference-only | Workflow patterns for coverage, earnings, model updates, comps and DCF; Claude-specific and US-centric constraints are not imported. |
+| `JerBouma/FinanceToolkit` | `fundamental-tools` | Optional dependency | Local calculation and provider-routing engine; underlying source lineage remains explicit. |
+| `JerBouma/FinanceDatabase` | `fundamental-tools` | Optional dependency | Cross-market issuer/ticker/identifier discovery, not a live fundamental source. |
+| `J-Quants/jquants-api-client-python` | `fundamental-tools` | Optional dependency | Official Japan API client for financial summaries, details and valuation. Requires a plan and API key. |
+| `J-Quants/jquants-cli` | `fundamental-tools` | Reference-only | Official JSON-capable CLI alternative; the Python adapter is the supported toolbox path. |
+| `FinanceData/OpenDartReader` | `fundamental-tools` | Optional dependency | Korea FSS OpenDART wrapper for financial statements and disclosures. |
+| `NanookAI/twse-api` | `fundamental-tools` | Reference-only | Reviewed endpoint/convention reference; the toolbox calls the official TWSE OpenAPI directly. |
+| `dgunning/edgartools` | `fundamental-tools` | Optional dependency | SEC filing and XBRL access for US issuers and APAC ADRs. |
+| `akfamily/akshare` | `fundamental-tools` | Optional dependency | China/HK public-web fallback; upstream website lineage and endpoint-drift warnings are retained. |
 | `TauricResearch/TradingAgents` | `finance-tools` | Reference-only | Experimental financial-research framework; no models, data stack or runtime are embedded. |
 | `AI4Finance-Foundation/FinGPT` | `finance-tools` | Reference-only | Optional financial-NLP framework; no model weights or runtime are embedded. |
 | `goldmansachs/gs-quant` | `quant-tools` | Optional dependency | Advanced analytics when credentials and data access are configured externally. |
@@ -17,7 +26,9 @@ The lock file uses five classifications: runtime dependency, MCP integration, op
 | `modelcontextprotocol/servers` | `research-tools`, `automation-tools` | Reference-only | MCP discovery catalog, never an automatic install source. |
 | `punkpeye/awesome-mcp-servers` | `research-tools`, `automation-tools` | Reference-only | Community discovery catalog, never an automatic install source. |
 
-There is currently no toolbox-managed external service. Optional packages are not installed with a plugin, and reference-only projects are not cloned, vendored or executed. Exact source snapshots are recorded in `upstream-lock.json`.
+The toolbox does not provision or manage an external service. Optional packages are not installed with a plugin, and reference-only projects are not vendored or executed. Exact source snapshots are recorded in `upstream-lock.json`.
+
+`fundamental-tools/scripts/provider_adapters.py` produces a raw, provenance-rich adapter envelope. `fundamental-tools/scripts/fundamental_pack.py` is the separate normalization/calculation boundary. Keeping collection and calculation separate prevents an aggregator or calculation library from silently becoming the authoritative filing source.
 
 `plugins/research-tools/.mcp.json` is the only directly executable integration. Its launcher uses `npx`, `pnpm`, or Codex's bundled package runner in that order. On first use, the selected runner may download the pinned package.
 

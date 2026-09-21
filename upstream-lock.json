@@ -53,6 +53,93 @@
       "mode": "optional-package"
     },
     {
+      "repository": "anthropics/financial-services",
+      "url": "https://github.com/anthropics/financial-services",
+      "ref": "main",
+      "commit": "fca3cc8e6c5692ba576b46d7c4783b8443c2a223",
+      "group": "fundamental-tools",
+      "classification": "reference-only",
+      "mode": "workflow-reference"
+    },
+    {
+      "repository": "JerBouma/FinanceToolkit",
+      "url": "https://github.com/JerBouma/FinanceToolkit",
+      "ref": "main",
+      "commit": "9fa19f9e97fee229dad4d65cf9c1448597af5df5",
+      "package": "financetoolkit==2.2.0",
+      "group": "fundamental-tools",
+      "classification": "optional-dependency",
+      "mode": "optional-local-package"
+    },
+    {
+      "repository": "JerBouma/FinanceDatabase",
+      "url": "https://github.com/JerBouma/FinanceDatabase",
+      "ref": "main",
+      "commit": "d0b95bd51f9c594c81bac0b20c7ab6cbd084c51e",
+      "package": "financedatabase==2.4.0",
+      "group": "fundamental-tools",
+      "classification": "optional-dependency",
+      "mode": "optional-local-package"
+    },
+    {
+      "repository": "J-Quants/jquants-api-client-python",
+      "url": "https://github.com/J-Quants/jquants-api-client-python",
+      "ref": "main",
+      "commit": "edbf19e59059ff62a3f66f072aaa0ef643009344",
+      "package": "jquants-api-client==2.7.0",
+      "group": "fundamental-tools",
+      "classification": "optional-dependency",
+      "mode": "official-api-client"
+    },
+    {
+      "repository": "J-Quants/jquants-cli",
+      "url": "https://github.com/J-Quants/jquants-cli",
+      "ref": "main",
+      "commit": "2ce5c9ef3eac21fbf283f76b677ba363f2fce343",
+      "group": "fundamental-tools",
+      "classification": "reference-only",
+      "mode": "optional-cli-reference"
+    },
+    {
+      "repository": "FinanceData/OpenDartReader",
+      "url": "https://github.com/FinanceData/OpenDartReader",
+      "ref": "master",
+      "commit": "9969a8cda25192e7b4d6c277411d62d8aa8cfa84",
+      "package": "opendartreader==0.3.3",
+      "group": "fundamental-tools",
+      "classification": "optional-dependency",
+      "mode": "official-api-wrapper"
+    },
+    {
+      "repository": "NanookAI/twse-api",
+      "url": "https://github.com/NanookAI/twse-api",
+      "ref": "main",
+      "commit": "2999e3c32977d33c51c94c245cdfe49a672f3281",
+      "group": "fundamental-tools",
+      "classification": "reference-only",
+      "mode": "official-openapi-reference"
+    },
+    {
+      "repository": "dgunning/edgartools",
+      "url": "https://github.com/dgunning/edgartools",
+      "ref": "main",
+      "commit": "4e817de7bf3efae44024e168754e8f5d53b1a227",
+      "package": "edgartools==5.58.0",
+      "group": "fundamental-tools",
+      "classification": "optional-dependency",
+      "mode": "official-sec-api-wrapper"
+    },
+    {
+      "repository": "akfamily/akshare",
+      "url": "https://github.com/akfamily/akshare",
+      "ref": "main",
+      "commit": "0191689d57c667b7c7a198fd0cf97316837ef311",
+      "package": "akshare==1.18.97",
+      "group": "fundamental-tools",
+      "classification": "optional-dependency",
+      "mode": "fallback-public-web-adapter"
+    },
+    {
       "repository": "goldmansachs/gs-quant",
       "url": "https://github.com/goldmansachs/gs-quant",
       "ref": "master",
