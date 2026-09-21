@@ -13,11 +13,14 @@ Use this skill to turn a manual process into a reviewable automation design.
 2. Classify each step as read-only, reversible write, or destructive/externally visible action.
 3. Choose n8n or Activepieces only after comparing deployment, connector, governance, and maintenance needs.
 4. Keep credentials in the workflow platform's secret store, not in exported workflow JSON or this repository.
-5. Add dry-run behavior, logging, rate limits, error handling, and an approval step for consequential actions.
-6. Produce a platform-neutral flow before writing platform-specific nodes or pieces.
+5. Express the platform-neutral flow as JSON and validate it with `scripts/validate_workflow.py`; start from `examples/workflow-spec.json` when useful.
+6. Add dry-run behavior, logging, rate limits, error handling, and an approval step for consequential actions.
+7. Produce platform-specific nodes or pieces only after the portable flow passes validation.
 
 ## Integration boundaries
 
 - n8n and Activepieces are reference-only; this plugin does not start a service or connect an account.
 - MCP catalogs are discovery sources, not trusted packages. Review any server before installation.
 - Do not enable a write-capable connector or send external messages without explicit user authorization.
+
+The validator accepts four risk levels: `read`, `reversible-write`, `external-write`, and `destructive`. The latter two must set `approval_required` to `true`.

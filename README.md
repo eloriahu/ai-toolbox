@@ -6,10 +6,10 @@
 
 | Plugin | Ready after plugin install | Optional local packages | Reference-only projects |
 | --- | --- | --- | --- |
-| `research-tools` | Playwright MCP `0.0.82` via `npx` | `browser-use==0.13.10` | Playwright, MCP Servers, Awesome MCP Servers |
-| `finance-tools` | Workflow skill and yfinance adapter | `openbb==4.7.2`, `yfinance==1.7.0` | — |
-| `quant-tools` | Workflow skill | `gs-quant==2.1.16` | TradingAgents, FinGPT |
-| `automation-tools` | Workflow-design skill | None | n8n, Activepieces, MCP Servers |
+| `research-tools` | Playwright MCP and source-evidence matrix | `browser-use==0.13.10` | Playwright, MCP Servers, Awesome MCP Servers |
+| `finance-tools` | Workflow skill and yfinance market snapshot | `openbb==4.7.2`, `yfinance==1.7.0` | — |
+| `quant-tools` | Dependency-free return and drawdown metrics | `gs-quant==2.1.16` | TradingAgents, FinGPT |
+| `automation-tools` | Safety-aware portable workflow validator | None | n8n, Activepieces, MCP Servers |
 
 “Reference-only” means the project is documented and pinned in [`upstream-lock.json`](upstream-lock.json), but no code, service, container, account, or credentials are installed by this repository.
 
@@ -53,6 +53,17 @@ No change to `apac-equity-desk` is required, so this repository intentionally le
 ## Updating pins
 
 Every upstream repository has an exact commit and default branch in [`upstream-lock.json`](upstream-lock.json). Review upstream release notes and security posture before changing a pin. Package pins and git pins are independent: update both when the package release is meant to track a newer source revision.
+
+## Validate the repository
+
+The repository's checks have no third-party Python dependencies:
+
+```shell
+python scripts/validate_repo.py
+python -m unittest discover -s tests -v
+```
+
+GitHub Actions runs the same structural, unit, compilation, and Node.js syntax checks on every push and pull request.
 
 ## License
 

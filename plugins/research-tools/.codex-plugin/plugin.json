@@ -1,6 +1,6 @@
 {
   "name": "research-tools",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Reusable browser research and MCP discovery tools without vendored upstream source.",
   "author": {
     "name": "eloriahu",

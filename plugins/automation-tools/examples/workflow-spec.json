@@ -1,0 +1,27 @@
+{
+  "name": "Daily market brief draft",
+  "trigger": {
+    "type": "schedule",
+    "expression": "weekdays at 07:00 Asia/Singapore"
+  },
+  "steps": [
+    {
+      "id": "fetch-market-data",
+      "action": "Read the configured market-data sources",
+      "risk": "read",
+      "approval_required": false
+    },
+    {
+      "id": "draft-brief",
+      "action": "Create a local draft from the retrieved evidence",
+      "risk": "reversible-write",
+      "approval_required": false
+    },
+    {
+      "id": "send-brief",
+      "action": "Send the reviewed brief to the configured channel",
+      "risk": "external-write",
+      "approval_required": true
+    }
+  ]
+}

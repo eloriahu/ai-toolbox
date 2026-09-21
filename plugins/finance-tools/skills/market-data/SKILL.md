@@ -12,8 +12,9 @@ Use this skill for historical prices, company metadata, simple return calculatio
 1. Identify the ticker, exchange, currency, requested interval, and date range.
 2. Prefer `scripts/market_snapshot.py` for a small yfinance-based JSON snapshot.
 3. Use OpenBB only when its broader provider coverage or standardized query layer materially helps.
-4. Include source/provider, retrieval time, adjustments, currency, and missing-data caveats in the result.
-5. Distinguish market facts from estimates, analysis, and investment opinion.
+4. Hand price-series analysis to the `quant-tools` return-metrics utility rather than duplicating calculations here.
+5. Include source/provider, retrieval time, adjustments, currency, and missing-data caveats in the result.
+6. Distinguish market facts from estimates, analysis, and investment opinion.
 
 ## Setup and safety
 

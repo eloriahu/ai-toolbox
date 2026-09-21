@@ -1,7 +1,7 @@
 {
   "name": "automation-tools",
-  "version": "0.1.0",
-  "description": "Reusable automation design guidance for n8n, Activepieces, and MCP servers.",
+  "version": "0.2.0",
+  "description": "Portable workflow validation and automation guidance for n8n, Activepieces, and MCP servers.",
   "author": {
     "name": "eloriahu",
     "url": "https://github.com/eloriahu"
