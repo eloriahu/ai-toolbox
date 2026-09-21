@@ -27,7 +27,7 @@ codex plugin add automation-tools@ai-toolbox
 
 The marketplace format follows the [official OpenAI plugin-management documentation](https://learn.chatgpt.com/docs/enterprise/plugin-management). In a managed ChatGPT workspace, an admin can instead import `https://github.com/eloriahu/ai-toolbox` under **Admin → Plugins → Add → Import marketplace**.
 
-`research-tools` is desktop-only because it declares a local MCP server. On first use, `npx` may download the pinned `@playwright/mcp` package. The other plugins contain reusable instructions and optional dependency files; they do not install third-party runtimes automatically.
+`research-tools` is desktop-only because it declares a local MCP server. It requires Node.js and uses a small launcher that selects `npx`, `pnpm`, or Codex's bundled package runner. On first use, the selected runner may download the pinned `@playwright/mcp` package. The other plugins contain reusable instructions and optional dependency files; they do not install third-party runtimes automatically.
 
 ## Optional dependencies
 

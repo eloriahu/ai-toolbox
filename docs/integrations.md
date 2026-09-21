@@ -4,7 +4,7 @@
 
 ### Playwright MCP
 
-`research-tools/.mcp.json` starts `@playwright/mcp@0.0.82` in headless mode through `npx`. This is the only upstream executable configured by a plugin manifest. It does not require a repository checkout or stored credentials.
+`research-tools/.mcp.json` starts `@playwright/mcp@0.0.82` in headless mode through a cross-platform Node.js launcher. The launcher uses `npx`, `pnpm`, or Codex's bundled package runner in that order. This is the only upstream executable configured by a plugin manifest. It does not require a repository checkout or stored credentials.
 
 ## Optional package integrations
 
