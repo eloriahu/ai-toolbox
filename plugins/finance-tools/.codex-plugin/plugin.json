@@ -1,7 +1,7 @@
 {
   "name": "finance-tools",
-  "version": "0.4.0",
-  "description": "Reusable market and company research workflows for OpenBB, yfinance, and optional framework evaluation.",
+  "version": "0.5.0+codex.20260921034916",
+  "description": "Reusable market snapshots, supplied event calendars, company research and optional framework evaluation.",
   "author": {
     "name": "eloriahu",
     "url": "https://github.com/eloriahu"
@@ -9,15 +9,23 @@
   "homepage": "https://github.com/eloriahu/ai-toolbox/tree/main/plugins/finance-tools",
   "repository": "https://github.com/eloriahu/ai-toolbox",
   "license": "MIT",
-  "keywords": ["finance", "market-data", "openbb", "yfinance", "financial-research"],
+  "keywords": [
+    "finance",
+    "market-data",
+    "openbb",
+    "yfinance",
+    "financial-research"
+  ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Finance Tools",
     "shortDescription": "Market and company research with automatic backend routing.",
-    "longDescription": "Route public-market and company research across lightweight yfinance snapshots, optional OpenBB, public evidence and guarded framework evaluation.",
+    "longDescription": "Route public-market and company research across lightweight yfinance snapshots, supplied event calendars, optional OpenBB, public evidence and guarded framework evaluation.",
     "developerName": "eloriahu",
     "category": "Finance",
-    "capabilities": ["Read"],
+    "capabilities": [
+      "Read"
+    ],
     "defaultPrompt": [
       "Fetch a reproducible market snapshot for this ticker.",
       "Compare these securities using public market data.",

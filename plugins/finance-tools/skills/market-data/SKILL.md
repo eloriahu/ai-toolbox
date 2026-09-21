@@ -1,6 +1,6 @@
 ---
 name: market-data
-description: Fetch, normalize, and compare public market or company data with pinned OpenBB and yfinance integrations, or assess optional financial-research frameworks without embedding them.
+description: Fetch, normalize, and compare public market or company data, normalize supplied event calendars, use pinned OpenBB and yfinance integrations, or assess optional financial-research frameworks without embedding them.
 ---
 
 # Market Data
@@ -15,6 +15,8 @@ Use this skill for historical prices, company data, fundamentals, valuation inpu
 4. Use `research-tools` for public filings, investor-relations pages and qualitative evidence that a market-data API does not provide; the user should not need to name that backend.
 5. Hand reusable price-series statistics to `quant-tools/scripts/return_metrics.py`; it accepts the snapshot JSON directly as well as `date,close` CSV.
 6. Include source/provider, retrieval time, adjustments, currency, and missing-data caveats in the result. Distinguish market facts from estimates, analysis and investment opinion.
+
+For catalyst calendars, normalize a supplied event set with `scripts/event_calendar.py`. Keep confirmed and provisional timing distinct, preserve event sources, and never imply that this helper discovers or verifies events. Use a live source or user-supplied calendar first.
 
 ## Setup and safety
 

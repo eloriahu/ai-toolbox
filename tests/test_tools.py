@@ -31,6 +31,9 @@ return_metrics = load_module(
 workflow_validator = load_module(
     "workflow_validator", "plugins/automation-tools/scripts/validate_workflow.py"
 )
+event_calendar = load_module(
+    "event_calendar", "plugins/finance-tools/scripts/event_calendar.py"
+)
 
 
 class SourceMatrixTests(unittest.TestCase):
@@ -187,6 +190,32 @@ class WorkflowValidatorTests(unittest.TestCase):
         }
         with self.assertRaises(ValueError):
             workflow_validator.validate_workflow(spec)
+
+    def test_apac_radar_workflow_is_approval_gated(self):
+        example = json.loads(
+            (ROOT / "plugins/automation-tools/examples/apac-sector-radar-workflow.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        result = workflow_validator.validate_workflow(example)
+        self.assertEqual(result["approvalSteps"], ["publish-reviewed-draft"])
+
+
+class EventCalendarTests(unittest.TestCase):
+    def test_filters_horizon_and_marks_provisional_timing(self):
+        result = event_calendar.build_calendar(
+            {
+                "as_of": "2026-09-21T08:00:00+08:00",
+                "events": [
+                    {"id": "e1", "category": "earnings", "starts_at": "2026-09-22T16:00:00+08:00", "confirmed": True},
+                    {"id": "e2", "category": "macro", "starts_at": "2026-09-23T09:00:00+08:00"},
+                    {"id": "e3", "category": "macro", "starts_at": "2026-10-30T09:00:00+08:00"},
+                ],
+            },
+            days=7,
+        )
+        self.assertEqual([event["id"] for event in result["events"]], ["e1", "e2"])
+        self.assertEqual(result["events"][1]["timing_status"], "provisional")
 
 
 if __name__ == "__main__":

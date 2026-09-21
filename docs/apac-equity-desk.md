@@ -25,6 +25,8 @@ Codex user/workspace
 - `finance-tools` may supply normalized public-market data or evaluate broader research frameworks; provider output must still be mapped into the desk's data contract and may not silently replace a conflicting observation.
 - `quant-tools` may perform reusable statistics and risk calculations. APAC-specific peer baskets, A/H conventions and market mappings remain in the desk.
 - `automation-tools` may prepare research packs or drafts. It must not publish externally, alter alerts/watchlists or perform brokerage mutations without a separately authorized workflow.
+- `finance-tools/scripts/event_calendar.py` normalizes an already sourced event set. Event discovery, APAC relevance and house presentation remain desk responsibilities.
+- `automation-tools/examples/apac-sector-radar-workflow.json` defines the portable schedule/read/rank/local-write/approval flow; the desk owns `topic_radar.py`, sector baskets and the causal investigation.
 - Missing optional capabilities produce a declared data gap or a reduced-scope draft, not an installation attempt or invented result.
 
 This avoids duplicated source and lets future US-equity, personal research, and quant projects use the same integrations. It also allows toolbox updates without changing the desk repository.

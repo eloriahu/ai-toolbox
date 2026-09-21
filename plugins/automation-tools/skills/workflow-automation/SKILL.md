@@ -17,6 +17,8 @@ Use this skill to turn a manual process into a reviewable automation design.
 6. Add dry-run behavior, logging, rate limits, error handling, and an approval step for consequential actions.
 7. Produce platform-specific nodes or pieces only after the portable flow passes validation.
 
+For a scheduled APAC topic scan, start from `examples/apac-sector-radar-workflow.json`. It creates a local evidence pack, not a publication subscription. Its optional external-write step is disabled by default and requires a fresh human approval for the selected draft.
+
 ## Integration boundaries
 
 - n8n and Activepieces are reference-only; this plugin does not start a service or connect an account. Do not configure or run both for the same workflow by default.

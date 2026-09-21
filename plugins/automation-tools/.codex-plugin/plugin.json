@@ -1,7 +1,7 @@
 {
   "name": "automation-tools",
-  "version": "0.3.0",
-  "description": "Portable workflow validation and automation guidance for n8n, Activepieces, and MCP servers.",
+  "version": "0.4.0+codex.20260921034917",
+  "description": "Portable workflow validation and approval-gated automation guidance for n8n, Activepieces, and MCP servers.",
   "author": {
     "name": "eloriahu",
     "url": "https://github.com/eloriahu"
@@ -9,15 +9,22 @@
   "homepage": "https://github.com/eloriahu/ai-toolbox/tree/main/plugins/automation-tools",
   "repository": "https://github.com/eloriahu/ai-toolbox",
   "license": "MIT",
-  "keywords": ["automation", "n8n", "activepieces", "mcp"],
+  "keywords": [
+    "automation",
+    "n8n",
+    "activepieces",
+    "mcp"
+  ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Automation Tools",
     "shortDescription": "Plan safe workflows for n8n and Activepieces.",
-    "longDescription": "Design portable automation specifications with n8n as the primary future platform and Activepieces as a deliberate fallback.",
+    "longDescription": "Design portable, risk-classified automation specifications with n8n as the primary platform, Activepieces as a deliberate fallback, and explicit human gates for external writes.",
     "developerName": "eloriahu",
     "category": "Productivity",
-    "capabilities": ["Read"],
+    "capabilities": [
+      "Read"
+    ],
     "defaultPrompt": [
       "Design an n8n workflow for this process.",
       "Map this workflow to n8n, or Activepieces when it is a better fit.",

@@ -7,9 +7,9 @@
 | Plugin | Ready after plugin install | Optional local packages | Reference-only projects |
 | --- | --- | --- | --- |
 | `research-tools` | Playwright MCP and source-evidence matrix | `browser-use==0.13.10` | MCP Servers, Awesome MCP Servers |
-| `finance-tools` | Provenance-rich yfinance market snapshot | `openbb==4.7.2`, `yfinance==1.7.0` | TradingAgents, FinGPT |
+| `finance-tools` | Provenance-rich market snapshots and portable event calendars | `openbb==4.7.2`, `yfinance==1.7.0` | TradingAgents, FinGPT |
 | `quant-tools` | CSV/snapshot return and drawdown metrics | `gs-quant==2.1.16` | — |
-| `automation-tools` | Safety-aware portable workflow validator | None | n8n (primary), Activepieces (fallback), MCP Servers |
+| `automation-tools` | Safety-aware workflow validator and approval-gated APAC radar design | None | n8n (primary), Activepieces (fallback), MCP Servers |
 
 “Reference-only” means the project is documented and pinned in [`upstream-lock.json`](upstream-lock.json), but no code, service, container, account, or credentials are installed by this repository.
 
@@ -48,6 +48,14 @@ python plugins/quant-tools/scripts/return_metrics.py snapshot.json --output metr
 ```
 
 Snapshots state whether prices were auto-adjusted and retain provider, retrieval time, currency, exchange time zone, and missing-data context. For weekly or monthly data, pass an appropriate `--periods-per-year` value to the metrics command.
+
+Normalize a sourced market-event set without adding a live service:
+
+```shell
+python plugins/finance-tools/scripts/event_calendar.py events.json --days 7 --output next-events.json
+```
+
+`automation-tools/examples/apac-sector-radar-workflow.json` is a portable design for scheduled, read-only topic capture. It writes a local evidence pack and leaves its optional publication step disabled by default and human-approval gated. The repository does not provision n8n, Activepieces, credentials, a quote feed, or a background service.
 
 ## Credentials and local configuration
 

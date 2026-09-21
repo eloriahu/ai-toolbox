@@ -1,0 +1,51 @@
+{
+  "name": "APAC sector radar evidence pack",
+  "owner": "APAC equity desk",
+  "trigger": {
+    "type": "schedule-or-manual",
+    "expression": "market-specific intervals during configured trading hours",
+    "timezone": "Asia/Singapore"
+  },
+  "dry_run_default": true,
+  "idempotency_key": "market + session_date + observation_window",
+  "steps": [
+    {
+      "id": "check-session",
+      "action": "Read the configured market calendar and stop outside trading windows",
+      "risk": "read",
+      "approval_required": false
+    },
+    {
+      "id": "collect-read-only-pack",
+      "action": "Read entitled quotes, benchmark, sector membership, volume and timestamped news",
+      "risk": "read",
+      "approval_required": false
+    },
+    {
+      "id": "rank-observed-topics",
+      "action": "Run topic_radar.py and pack_readiness.py without making causal claims",
+      "risk": "read",
+      "approval_required": false
+    },
+    {
+      "id": "write-local-draft",
+      "action": "Write a timestamped evidence pack and draft topic shortlist to a configured local output directory",
+      "risk": "reversible-write",
+      "approval_required": false
+    },
+    {
+      "id": "publish-reviewed-draft",
+      "action": "Optionally send a specifically selected, human-reviewed draft to a configured channel",
+      "risk": "external-write",
+      "approval_required": true,
+      "enabled_by_default": false
+    }
+  ],
+  "retry": {
+    "read_steps": "bounded exponential backoff",
+    "write_steps": "no automatic retry after an ambiguous result"
+  },
+  "logging": "Record source timestamps, gaps, readiness status and the selected topic; never log credentials.",
+  "rate_limits": "Use provider-specific limits and coalesce repeated symbols.",
+  "failure_behavior": "Retain the last successful artifact as historical context only; never relabel it as current."
+}
