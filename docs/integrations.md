@@ -10,7 +10,7 @@
 
 - **browser-use** — pinned in `requirements.optional.lock.txt`; install only when a Python browser agent is specifically needed.
 - **OpenBB** — pinned in the finance lock file; authentication remains external and local.
-- **yfinance** — pinned in the finance lock file and used by the small `market_snapshot.py` adapter.
+- **yfinance** — pinned in the finance lock file and used by `market_snapshot.py`. Its versioned JSON schema records provenance, adjustment settings, market metadata availability, null counts, and price rows; `quant-tools/scripts/return_metrics.py` consumes this JSON directly.
 - **gs-quant** — pinned in the quant lock file. Services that require Goldman Sachs credentials remain disabled until configured outside Git.
 
 Optional packages are not installed when a Codex plugin is installed. This keeps the marketplace portable and prevents an unrelated project from acquiring a large dependency stack.

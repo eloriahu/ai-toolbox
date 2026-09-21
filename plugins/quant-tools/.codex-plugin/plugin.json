@@ -1,6 +1,6 @@
 {
   "name": "quant-tools",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Reproducible quantitative-finance utilities, gs-quant guidance, and reference research frameworks.",
   "author": {
     "name": "eloriahu",

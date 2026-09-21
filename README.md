@@ -7,8 +7,8 @@
 | Plugin | Ready after plugin install | Optional local packages | Reference-only projects |
 | --- | --- | --- | --- |
 | `research-tools` | Playwright MCP and source-evidence matrix | `browser-use==0.13.10` | Playwright, MCP Servers, Awesome MCP Servers |
-| `finance-tools` | Workflow skill and yfinance market snapshot | `openbb==4.7.2`, `yfinance==1.7.0` | — |
-| `quant-tools` | Dependency-free return and drawdown metrics | `gs-quant==2.1.16` | TradingAgents, FinGPT |
+| `finance-tools` | Provenance-rich yfinance market snapshot | `openbb==4.7.2`, `yfinance==1.7.0` | — |
+| `quant-tools` | CSV/snapshot return and drawdown metrics | `gs-quant==2.1.16` | TradingAgents, FinGPT |
 | `automation-tools` | Safety-aware portable workflow validator | None | n8n, Activepieces, MCP Servers |
 
 “Reference-only” means the project is documented and pinned in [`upstream-lock.json`](upstream-lock.json), but no code, service, container, account, or credentials are installed by this repository.
@@ -39,6 +39,15 @@ python -m venv .venv
 ```
 
 On macOS/Linux, use `.venv/bin/python` instead. See [`docs/integrations.md`](docs/integrations.md) for every upstream and its support level.
+
+The finance and quant adapters form a repeatable file-based pipeline:
+
+```shell
+python plugins/finance-tools/scripts/market_snapshot.py 7203.T --period 1y --output snapshot.json
+python plugins/quant-tools/scripts/return_metrics.py snapshot.json --output metrics.json
+```
+
+Snapshots state whether prices were auto-adjusted and retain provider, retrieval time, currency, exchange time zone, and missing-data context. For weekly or monthly data, pass an appropriate `--periods-per-year` value to the metrics command.
 
 ## Credentials and local configuration
 
