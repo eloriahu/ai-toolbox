@@ -1,6 +1,6 @@
 {
   "name": "automation-tools",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Portable workflow validation and automation guidance for n8n, Activepieces, and MCP servers.",
   "author": {
     "name": "eloriahu",
@@ -14,13 +14,13 @@
   "interface": {
     "displayName": "Automation Tools",
     "shortDescription": "Plan safe workflows for n8n and Activepieces.",
-    "longDescription": "Design automation integrations without bundling runtimes, credentials, or third-party workflow engines.",
+    "longDescription": "Design portable automation specifications with n8n as the primary future platform and Activepieces as a deliberate fallback.",
     "developerName": "eloriahu",
     "category": "Productivity",
     "capabilities": ["Read"],
     "defaultPrompt": [
       "Design an n8n workflow for this process.",
-      "Compare n8n and Activepieces for this automation.",
+      "Map this workflow to n8n, or Activepieces when it is a better fit.",
       "Map this workflow to MCP tools safely."
     ]
   }

@@ -11,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MARKETPLACE = ROOT / ".agents" / "plugins" / "marketplace.json"
 SEMVER = re.compile(r"^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$")
+GIT_SHA = re.compile(r"^[0-9a-f]{40}$")
 REQUIRED_UPSTREAMS = {
     "microsoft/playwright",
     "microsoft/playwright-mcp",
@@ -24,6 +25,27 @@ REQUIRED_UPSTREAMS = {
     "activepieces/activepieces",
     "modelcontextprotocol/servers",
     "punkpeye/awesome-mcp-servers",
+}
+ALLOWED_CLASSIFICATIONS = {
+    "runtime-dependency",
+    "mcp-integration",
+    "optional-dependency",
+    "reference-only",
+    "external-service",
+}
+EXPECTED_UPSTREAM_PLUGINS = {
+    "microsoft/playwright": {"research-tools"},
+    "microsoft/playwright-mcp": {"research-tools"},
+    "browser-use/browser-use": {"research-tools"},
+    "OpenBB-finance/OpenBB": {"finance-tools"},
+    "ranaroussi/yfinance": {"finance-tools"},
+    "goldmansachs/gs-quant": {"quant-tools"},
+    "TauricResearch/TradingAgents": {"finance-tools"},
+    "AI4Finance-Foundation/FinGPT": {"finance-tools"},
+    "n8n-io/n8n": {"automation-tools"},
+    "activepieces/activepieces": {"automation-tools"},
+    "modelcontextprotocol/servers": {"research-tools", "automation-tools"},
+    "punkpeye/awesome-mcp-servers": {"research-tools", "automation-tools"},
 }
 
 
@@ -73,14 +95,62 @@ def validate() -> list[str]:
         )
 
     lock = load_json(ROOT / "upstream-lock.json", errors)
-    locked = {
-        item.get("repository")
-        for item in lock.get("upstreams", [])
-        if isinstance(item, dict)
-    }
+    if lock.get("schemaVersion") != 2:
+        errors.append("upstream-lock.json schemaVersion must be 2.")
+    upstreams = lock.get("upstreams", [])
+    if not isinstance(upstreams, list):
+        errors.append("upstream-lock.json requires an 'upstreams' array.")
+        upstreams = []
+
+    repositories = []
+    for item in upstreams:
+        if not isinstance(item, dict):
+            errors.append("Each upstream entry must be an object.")
+            continue
+        repository = item.get("repository")
+        if not isinstance(repository, str) or not repository:
+            errors.append("Each upstream entry requires a repository name.")
+            continue
+        repositories.append(repository)
+        if not isinstance(item.get("ref"), str) or not item["ref"].strip():
+            errors.append(f"{repository}: requires a non-empty ref.")
+        if not isinstance(item.get("commit"), str) or not GIT_SHA.fullmatch(
+            item["commit"]
+        ):
+            errors.append(f"{repository}: commit must be an exact 40-character SHA.")
+        classification = item.get("classification")
+        if classification not in ALLOWED_CLASSIFICATIONS:
+            errors.append(
+                f"{repository}: classification must be one of "
+                f"{', '.join(sorted(ALLOWED_CLASSIFICATIONS))}."
+            )
+        groups = {
+            group.strip()
+            for group in str(item.get("group", "")).split(",")
+            if group.strip()
+        }
+        expected_groups = EXPECTED_UPSTREAM_PLUGINS.get(repository)
+        if expected_groups is not None and groups != expected_groups:
+            errors.append(
+                f"{repository}: expected plugin groups {sorted(expected_groups)}, "
+                f"found {sorted(groups)}."
+            )
+        package_required = classification in {
+            "mcp-integration",
+            "optional-dependency",
+        }
+        if package_required and not isinstance(item.get("package"), str):
+            errors.append(f"{repository}: {classification} requires a package pin.")
+
+    locked = set(repositories)
     missing = REQUIRED_UPSTREAMS - locked
     if missing:
         errors.append(f"upstream-lock.json is missing: {', '.join(sorted(missing))}")
+    duplicates = {
+        repository for repository in locked if repositories.count(repository) > 1
+    }
+    if duplicates:
+        errors.append(f"Duplicate upstream entries: {', '.join(sorted(duplicates))}")
 
     unfinished_marker = "[" + "TODO:"
     for path in ROOT.rglob("*"):

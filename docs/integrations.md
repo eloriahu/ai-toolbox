@@ -1,25 +1,24 @@
 # Integration matrix
 
-## Installed or directly configured
+The lock file uses five classifications: runtime dependency, MCP integration, optional dependency, reference-only and external service. Classification describes what the toolbox actually does today, not what an upstream project could support later.
 
-### Playwright MCP
+| Upstream | Toolbox group | Classification | Current integration |
+| --- | --- | --- | --- |
+| `microsoft/playwright` | `research-tools` | Runtime dependency | Browser engine reached transitively through the configured MCP package. |
+| `microsoft/playwright-mcp` | `research-tools` | MCP integration | Pinned `@playwright/mcp@0.0.82`, launched headlessly through the cross-platform runner. |
+| `browser-use/browser-use` | `research-tools` | Optional dependency | Pinned Python package for tasks that materially need a Python browser agent. |
+| `OpenBB-finance/OpenBB` | `finance-tools` | Optional dependency | Broader provider and standardized-query layer; install only for tasks that need it. |
+| `ranaroussi/yfinance` | `finance-tools` | Optional dependency | Powers the versioned, provenance-rich market snapshot adapter. |
+| `TauricResearch/TradingAgents` | `finance-tools` | Reference-only | Experimental financial-research framework; no models, data stack or runtime are embedded. |
+| `AI4Finance-Foundation/FinGPT` | `finance-tools` | Reference-only | Optional financial-NLP framework; no model weights or runtime are embedded. |
+| `goldmansachs/gs-quant` | `quant-tools` | Optional dependency | Advanced analytics when credentials and data access are configured externally. |
+| `n8n-io/n8n` | `automation-tools` | Reference-only | Primary future workflow platform; no service or account is provisioned. |
+| `activepieces/activepieces` | `automation-tools` | Reference-only | Alternative/fallback when a workflow specifically fits it better. |
+| `modelcontextprotocol/servers` | `research-tools`, `automation-tools` | Reference-only | MCP discovery catalog, never an automatic install source. |
+| `punkpeye/awesome-mcp-servers` | `research-tools`, `automation-tools` | Reference-only | Community discovery catalog, never an automatic install source. |
 
-`research-tools/.mcp.json` starts `@playwright/mcp@0.0.82` in headless mode through a cross-platform Node.js launcher. The launcher uses `npx`, `pnpm`, or Codex's bundled package runner in that order. This is the only upstream executable configured by a plugin manifest. It does not require a repository checkout or stored credentials.
+There is currently no toolbox-managed external service. Optional packages are not installed with a plugin, and reference-only projects are not cloned, vendored or executed. Exact source snapshots are recorded in `upstream-lock.json`.
 
-## Optional package integrations
+`plugins/research-tools/.mcp.json` is the only directly executable integration. Its launcher uses `npx`, `pnpm`, or Codex's bundled package runner in that order. On first use, the selected runner may download the pinned package.
 
-- **browser-use** — pinned in `requirements.optional.lock.txt`; install only when a Python browser agent is specifically needed.
-- **OpenBB** — pinned in the finance lock file; authentication remains external and local.
-- **yfinance** — pinned in the finance lock file and used by `market_snapshot.py`. Its versioned JSON schema records provenance, adjustment settings, market metadata availability, null counts, and price rows; `quant-tools/scripts/return_metrics.py` consumes this JSON directly.
-- **gs-quant** — pinned in the quant lock file. Services that require Goldman Sachs credentials remain disabled until configured outside Git.
-
-Optional packages are not installed when a Codex plugin is installed. This keeps the marketplace portable and prevents an unrelated project from acquiring a large dependency stack.
-
-## Reference-only integrations
-
-- **Playwright** is the browser engine behind the configured MCP package; use its upstream docs for library-level work.
-- **TradingAgents** and **FinGPT** are research frameworks with significant model, data, and runtime choices. The toolbox provides selection guidance, not embedded code.
-- **n8n** and **Activepieces** are workflow platforms. Bring an existing self-hosted or managed instance and supply its URL and credentials locally if you later add an adapter.
-- **modelcontextprotocol/servers** and **awesome-mcp-servers** are discovery catalogs. Treat every discovered server as untrusted until its source, permissions, data handling, and pinning have been reviewed.
-
-Exact source snapshots are recorded in the root `upstream-lock.json`; no upstream repository is a submodule, subtree, archive, or copied directory.
+The yfinance snapshot schema records provenance, adjustment settings, market metadata availability, null counts and price rows. `quant-tools/scripts/return_metrics.py` consumes this JSON directly.

@@ -11,7 +11,7 @@ Use this skill to turn a manual process into a reviewable automation design.
 
 1. Describe the trigger, inputs, transformations, outputs, retries, idempotency, and owner.
 2. Classify each step as read-only, reversible write, or destructive/externally visible action.
-3. Choose n8n or Activepieces only after comparing deployment, connector, governance, and maintenance needs.
+3. Prefer n8n as the default future workflow platform. Choose Activepieces only when its deployment, connector, governance or maintenance fit is materially better for the specific workflow.
 4. Keep credentials in the workflow platform's secret store, not in exported workflow JSON or this repository.
 5. Express the platform-neutral flow as JSON and validate it with `scripts/validate_workflow.py`; start from `examples/workflow-spec.json` when useful.
 6. Add dry-run behavior, logging, rate limits, error handling, and an approval step for consequential actions.
@@ -19,7 +19,7 @@ Use this skill to turn a manual process into a reviewable automation design.
 
 ## Integration boundaries
 
-- n8n and Activepieces are reference-only; this plugin does not start a service or connect an account.
+- n8n and Activepieces are reference-only; this plugin does not start a service or connect an account. Do not configure or run both for the same workflow by default.
 - MCP catalogs are discovery sources, not trusted packages. Review any server before installation.
 - Do not enable a write-capable connector or send external messages without explicit user authorization.
 

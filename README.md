@@ -6,10 +6,10 @@
 
 | Plugin | Ready after plugin install | Optional local packages | Reference-only projects |
 | --- | --- | --- | --- |
-| `research-tools` | Playwright MCP and source-evidence matrix | `browser-use==0.13.10` | Playwright, MCP Servers, Awesome MCP Servers |
-| `finance-tools` | Provenance-rich yfinance market snapshot | `openbb==4.7.2`, `yfinance==1.7.0` | — |
-| `quant-tools` | CSV/snapshot return and drawdown metrics | `gs-quant==2.1.16` | TradingAgents, FinGPT |
-| `automation-tools` | Safety-aware portable workflow validator | None | n8n, Activepieces, MCP Servers |
+| `research-tools` | Playwright MCP and source-evidence matrix | `browser-use==0.13.10` | MCP Servers, Awesome MCP Servers |
+| `finance-tools` | Provenance-rich yfinance market snapshot | `openbb==4.7.2`, `yfinance==1.7.0` | TradingAgents, FinGPT |
+| `quant-tools` | CSV/snapshot return and drawdown metrics | `gs-quant==2.1.16` | — |
+| `automation-tools` | Safety-aware portable workflow validator | None | n8n (primary), Activepieces (fallback), MCP Servers |
 
 “Reference-only” means the project is documented and pinned in [`upstream-lock.json`](upstream-lock.json), but no code, service, container, account, or credentials are installed by this repository.
 
@@ -61,7 +61,7 @@ No change to `apac-equity-desk` is required, so this repository intentionally le
 
 ## Updating pins
 
-Every upstream repository has an exact commit and default branch in [`upstream-lock.json`](upstream-lock.json). Review upstream release notes and security posture before changing a pin. Package pins and git pins are independent: update both when the package release is meant to track a newer source revision.
+Every upstream repository has an exact commit, default branch, owning plugin group and integration classification in [`upstream-lock.json`](upstream-lock.json). The allowed classifications are runtime dependency, MCP integration, optional dependency, reference-only and external service. Review upstream release notes and security posture before changing a pin. Package pins and git pins are independent: update both when the package release is meant to track a newer source revision.
 
 ## Validate the repository
 

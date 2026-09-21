@@ -1,6 +1,6 @@
 {
   "name": "research-tools",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Reusable browser research and MCP discovery tools without vendored upstream source.",
   "author": {
     "name": "eloriahu",
@@ -15,7 +15,7 @@
   "interface": {
     "displayName": "Research Tools",
     "shortDescription": "Browser research with a pinned Playwright MCP server.",
-    "longDescription": "Run structured browser research through Playwright MCP and discover optional browser-use and community MCP resources.",
+    "longDescription": "Route evidence-backed research across ordinary web retrieval, Playwright MCP and optional browser-use without making the user choose a backend.",
     "developerName": "eloriahu",
     "category": "Research",
     "capabilities": ["Read", "Interactive"],

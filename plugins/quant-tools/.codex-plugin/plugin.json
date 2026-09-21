@@ -1,7 +1,7 @@
 {
   "name": "quant-tools",
-  "version": "0.3.0",
-  "description": "Reproducible quantitative-finance utilities, gs-quant guidance, and reference research frameworks.",
+  "version": "0.4.0",
+  "description": "Reproducible quantitative-finance utilities and optional gs-quant guidance.",
   "author": {
     "name": "eloriahu",
     "url": "https://github.com/eloriahu"
@@ -9,19 +9,19 @@
   "homepage": "https://github.com/eloriahu/ai-toolbox/tree/main/plugins/quant-tools",
   "repository": "https://github.com/eloriahu/ai-toolbox",
   "license": "MIT",
-  "keywords": ["quant", "gs-quant", "trading-agents", "fingpt"],
+  "keywords": ["quant", "gs-quant", "statistics", "risk", "time-series"],
   "skills": "./skills/",
   "interface": {
     "displayName": "Quant Tools",
-    "shortDescription": "Quant workflows with gs-quant and framework references.",
-    "longDescription": "Plan quantitative analysis using pinned gs-quant, with guarded integration paths for TradingAgents and FinGPT.",
+    "shortDescription": "Quantitative research and risk workflows with optional gs-quant.",
+    "longDescription": "Run dependency-free return metrics or plan advanced statistics, factor, risk and derivatives analysis with pinned optional gs-quant.",
     "developerName": "eloriahu",
     "category": "Finance",
     "capabilities": ["Read"],
     "defaultPrompt": [
       "Design a reproducible quant analysis for this question.",
       "Check whether gs-quant fits this workflow.",
-      "Evaluate TradingAgents or FinGPT for this use case."
+      "Analyze this price series with reproducible assumptions."
     ]
   }
 }
