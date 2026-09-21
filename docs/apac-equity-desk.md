@@ -20,9 +20,9 @@ Codex user/workspace
 
 ## Loose-coupling contract
 
-- `apac-equity-desk` remains usable with Longbridge, supplied evidence packs and its dependency-free calculation helpers when no toolbox plugin is available.
+- `apac-equity-desk` remains usable with user-supplied Bloomberg packs and its dependency-free calculation helpers when no toolbox plugin is available.
 - `research-tools` may collect public filings and web evidence, but the desk retains its APAC source hierarchy, causal standards and house style.
-- `finance-tools` may supply normalized public-market data or evaluate broader research frameworks; provider output must still be mapped into the desk's data contract and may not silently replace a conflicting observation.
+- `finance-tools` normalizes Bloomberg exports and screenshot transcriptions and may fill explicit market-data gaps through OpenBB; provider output must still be mapped into the desk contract with field-level lineage and may not silently replace a fresh conflicting observation.
 - `quant-tools` may perform reusable statistics and risk calculations. APAC-specific peer baskets, A/H conventions and market mappings remain in the desk.
 - `automation-tools` may prepare research packs or drafts. It must not publish externally, alter alerts/watchlists or perform brokerage mutations without a separately authorized workflow.
 - `finance-tools/scripts/event_calendar.py` normalizes an already sourced event set. Event discovery, APAC relevance and house presentation remain desk responsibilities.

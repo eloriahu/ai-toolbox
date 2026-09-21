@@ -1,6 +1,6 @@
 ---
 name: market-data
-description: Fetch, normalize, and compare public market or company data, normalize supplied event calendars, use pinned OpenBB and yfinance integrations, or assess optional financial-research frameworks without embedding them.
+description: Normalize user-supplied Bloomberg exports or screenshots, apply field-level OpenBB fallbacks, fetch and compare public market data, normalize event calendars, and assess optional finance integrations.
 ---
 
 # Market Data
@@ -9,20 +9,23 @@ Use this skill for historical prices, company data, fundamentals, valuation inpu
 
 ## Workflow
 
-1. Identify the ticker, exchange, currency, requested interval, and date range.
-2. Route a small public price-history request to `scripts/market_snapshot.py`. The snapshot records adjustment settings, currency and exchange-time-zone availability, null counts, and retrieval provenance.
-3. Route broader provider coverage, fundamentals or standardized queries to OpenBB only when its pinned optional package is installed and materially helps.
-4. Use `research-tools` for public filings, investor-relations pages and qualitative evidence that a market-data API does not provide; the user should not need to name that backend.
-5. Hand reusable price-series statistics to `quant-tools/scripts/return_metrics.py`; it accepts the snapshot JSON directly as well as `date,close` CSV.
-6. Include source/provider, retrieval time, adjustments, currency, and missing-data caveats in the result. Distinguish market facts from estimates, analysis and investment opinion.
+1. Identify the ticker, exchange, currency, requested interval, date range and the user's supplied artifacts.
+2. Prefer a user-supplied Bloomberg export or screenshot. For either, read `../../references/bloomberg-inputs.md`; normalize structured rows or visually transcribed screenshot rows with `scripts/normalize_market_input.py`.
+3. Preserve task/upload time separately from the provider's price timestamp. If the Bloomberg timestamp is missing or stale, use OpenBB only for the affected fields and merge with `scripts/merge_market_sources.py`; never silently relabel or overwrite the primary observation.
+4. When no Bloomberg input is supplied, route a small public price-history request to `scripts/market_snapshot.py`. Use `scripts/openbb_market_snapshot.py --markets APAC --provider fmp` for broad APAC exchange discovery when the pinned OpenBB package and provider are configured, or `--symbols` for a timestamped fallback basket.
+5. Use `research-tools` for public filings, investor-relations pages and qualitative evidence that a market-data API does not provide; the user should not need to name that backend.
+6. Hand reusable price-series statistics to `quant-tools/scripts/return_metrics.py`; it accepts the snapshot JSON directly as well as `date,close` CSV.
+7. Include source/provider, run time, capture window, provider timestamp, adjustments, currency, fallback lineage and missing-data caveats. Distinguish market facts from estimates, analysis and investment opinion.
 
 For catalyst calendars, normalize a supplied event set with `scripts/event_calendar.py`. Keep confirmed and provisional timing distinct, preserve event sources, and never imply that this helper discovers or verifies events. Use a live source or user-supplied calendar first.
 
 ## Setup and safety
 
 - Install `requirements.lock.txt` in an isolated environment; plugin installation does not install Python packages.
+- Prefer `FINANCE_TOOLS_PYTHON` when configured. Otherwise look for the portable user environment at `~/.codex/venvs/finance-tools/Scripts/python.exe` on Windows or `~/.codex/venvs/finance-tools/bin/python` on macOS/Linux before declaring OpenBB unavailable.
 - Keep provider credentials in a local `.env` or the provider's credential store, never in Git.
 - Respect provider terms, rate limits, and permitted data use.
+- Keep user-supplied Bloomberg screenshots and exports local. Do not commit or redistribute them.
 - Treat results as research data, not personalized financial advice.
 
 ## Experimental frameworks

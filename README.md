@@ -7,7 +7,7 @@
 | Plugin | Ready after plugin install | Optional local packages | Reference-only projects |
 | --- | --- | --- | --- |
 | `research-tools` | Playwright MCP and source-evidence matrix | `browser-use==0.13.10` | MCP Servers, Awesome MCP Servers |
-| `finance-tools` | Provenance-rich market snapshots and portable event calendars | `openbb==4.7.2`, `yfinance==1.7.0` | TradingAgents, FinGPT |
+| `finance-tools` | Bloomberg export/screenshot normalization, field-level OpenBB fallback, market snapshots and event calendars | `openbb==4.7.2`, `yfinance==1.7.0` | TradingAgents, FinGPT |
 | `quant-tools` | CSV/snapshot return and drawdown metrics | `gs-quant==2.1.16` | — |
 | `automation-tools` | Safety-aware workflow validator and approval-gated APAC radar design | None | n8n (primary), Activepieces (fallback), MCP Servers |
 
@@ -48,6 +48,21 @@ python plugins/quant-tools/scripts/return_metrics.py snapshot.json --output metr
 ```
 
 Snapshots state whether prices were auto-adjusted and retain provider, retrieval time, currency, exchange time zone, and missing-data context. For weekly or monthly data, pass an appropriate `--periods-per-year` value to the metrics command.
+
+Normalize a user-supplied Bloomberg CSV/JSON export—or JSON transcribed from a Bloomberg screenshot—without confusing upload time with market time:
+
+```shell
+python plugins/finance-tools/scripts/normalize_market_input.py bloomberg.csv --source-kind bloomberg_export --data-as-of 2026-09-21T13:04:00+08:00 --market HK --output bloomberg-pack.json
+```
+
+When configured, fetch a broad APAC fallback through OpenBB and merge only missing or stale live fields while retaining per-field lineage:
+
+```shell
+python plugins/finance-tools/scripts/openbb_market_snapshot.py --markets APAC --provider fmp --output openbb-pack.json
+python plugins/finance-tools/scripts/merge_market_sources.py bloomberg-pack.json openbb-pack.json --expected-market-timestamp 2026-09-21T13:04:00+08:00 --output merged-pack.json
+```
+
+Bloomberg screenshots and exports remain local and must not be committed or redistributed.
 
 Normalize a sourced market-event set without adding a live service:
 

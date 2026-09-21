@@ -34,6 +34,15 @@ workflow_validator = load_module(
 event_calendar = load_module(
     "event_calendar", "plugins/finance-tools/scripts/event_calendar.py"
 )
+normalize_market_input = load_module(
+    "normalize_market_input", "plugins/finance-tools/scripts/normalize_market_input.py"
+)
+merge_market_sources = load_module(
+    "merge_market_sources", "plugins/finance-tools/scripts/merge_market_sources.py"
+)
+openbb_market_snapshot = load_module(
+    "openbb_market_snapshot", "plugins/finance-tools/scripts/openbb_market_snapshot.py"
+)
 
 
 class SourceMatrixTests(unittest.TestCase):
@@ -85,6 +94,104 @@ class MarketSnapshotTests(unittest.TestCase):
         self.assertTrue(snapshot["adjustment"]["autoAdjusted"])
         self.assertEqual(snapshot["missingData"]["nullValuesByField"]["volume"], 1)
         self.assertIsNone(snapshot["rows"][0]["volume"])
+
+
+class SuppliedMarketDataTests(unittest.TestCase):
+    def test_normalizes_bloomberg_aliases_and_screenshot_provenance(self):
+        pack = normalize_market_input.build_pack(
+            [{"Ticker": "700 HK Equity", "PX_LAST": "427.0", "PREV_CLOSE_VALUE_REALTIME": "419", "CHG_PCT_1D": "1.91%"}],
+            source_kind="bloomberg_screenshot",
+            source_artifact="screen.png",
+            data_as_of="2026-09-21T13:04:00+08:00",
+            market="HK",
+            ingested_at=datetime(2026, 9, 21, 5, 5, tzinfo=timezone.utc),
+        )
+        self.assertEqual(pack["provider"], "Bloomberg user upload")
+        self.assertEqual(pack["quotes"][0]["last"], 427)
+        self.assertEqual(pack["quotes"][0]["timestamp"], "2026-09-21T13:04:00+08:00")
+        self.assertTrue(pack["quality"]["timestamp_verified"])
+
+    def test_openbb_replaces_only_stale_live_fields(self):
+        primary = {
+            "provider": "Bloomberg user upload",
+            "movement_basis": "latest_vs_previous_close",
+            "quotes": [{"symbol": "700.HK", "name": "Tencent", "last": 420, "timestamp": "2026-09-21T10:34:00+08:00"}],
+        }
+        fallback = {
+            "provider": "FMP via OpenBB",
+            "quotes": [{"symbol": "700.HK", "name": "Tencent Holdings", "last": 427, "volume": 100, "timestamp": "2026-09-21T13:03:00+08:00"}],
+        }
+        result = merge_market_sources.merge_packs(
+            primary,
+            fallback,
+            expected_market_timestamp="2026-09-21T13:04:00+08:00",
+            max_age_minutes=5,
+        )
+        row = result["quotes"][0]
+        self.assertEqual(row["last"], 427)
+        self.assertEqual(row["name"], "Tencent")
+        self.assertEqual(row["lineage"]["last"], "FMP via OpenBB")
+        self.assertEqual(row["lineage"]["name"], "Bloomberg user upload")
+
+    def test_matches_bloomberg_and_public_provider_symbols(self):
+        primary = {
+            "provider": "Bloomberg user upload",
+            "quotes": [{"symbol": "700 HK Equity", "last": 420, "timestamp": "2026-09-21T10:34:00+08:00"}],
+        }
+        fallback = {
+            "provider": "yfinance via OpenBB",
+            "quotes": [{"symbol": "0700.HK", "last": 427, "timestamp": "2026-09-21T13:03:00+08:00"}],
+        }
+        result = merge_market_sources.merge_packs(
+            primary,
+            fallback,
+            expected_market_timestamp="2026-09-21T13:04:00+08:00",
+        )
+        self.assertEqual(len(result["quotes"]), 1)
+        self.assertEqual(result["quotes"][0]["symbol"], "0700.HK")
+        self.assertEqual(result["quotes"][0]["last"], 427)
+
+    def test_normalizes_openbb_timestamp_and_provider(self):
+        result = openbb_market_snapshot.normalize_results(
+            [{"symbol": "700.HK", "last_price": 427, "prev_close": 419, "last_timestamp": "2026-09-21T13:03:00+08:00"}],
+            provider="fmp",
+            market="HK",
+            requested_at=datetime(2026, 9, 21, 5, 2, tzinfo=timezone.utc),
+            completed_at=datetime(2026, 9, 21, 5, 3, tzinfo=timezone.utc),
+        )
+        self.assertEqual(result["provider"], "fmp via OpenBB")
+        self.assertEqual(result["quotes"][0]["timestamp"], "2026-09-21T13:03:00+08:00")
+        self.assertTrue(result["quality"]["timestamp_verified"])
+
+    def test_yahoo_hk_symbol_and_minute_bar_timestamp(self):
+        self.assertEqual(openbb_market_snapshot.normalize_symbols(["700.HK", "9988.HK"], "yfinance"), ["0700.HK", "9988.HK"])
+        pack = openbb_market_snapshot.normalize_results(
+            [{"symbol": "0700.HK", "last_price": 426, "prev_close": 419}],
+            provider="yfinance",
+            market="HK",
+            requested_at=datetime(2026, 9, 21, 5, 2, tzinfo=timezone.utc),
+            completed_at=datetime(2026, 9, 21, 5, 3, tzinfo=timezone.utc),
+        )
+        openbb_market_snapshot.attach_latest_bars(
+            pack,
+            [{"symbol": "0700.HK", "date": datetime(2026, 9, 21, 13, 3), "close": 427, "volume": 100}],
+        )
+        self.assertEqual(pack["quotes"][0]["last"], 427)
+        self.assertEqual(pack["quotes"][0]["timestamp"], "2026-09-21T13:03:00+08:00")
+        self.assertEqual(pack["quality"]["provider_delay_minutes"], 0.0)
+
+        index_pack = openbb_market_snapshot.normalize_results(
+            [{"symbol": "^HSI", "exchange": "HKG", "prev_close": 100}],
+            provider="yfinance",
+            market=None,
+            requested_at=datetime(2026, 9, 21, 5, 2, tzinfo=timezone.utc),
+            completed_at=datetime(2026, 9, 21, 5, 3, tzinfo=timezone.utc),
+        )
+        openbb_market_snapshot.attach_latest_bars(
+            index_pack,
+            [{"symbol": "^HSI", "date": datetime(2026, 9, 21, 13, 3), "close": 101}],
+        )
+        self.assertEqual(index_pack["quotes"][0]["timestamp"], "2026-09-21T13:03:00+08:00")
 
 
 class ReturnMetricTests(unittest.TestCase):
