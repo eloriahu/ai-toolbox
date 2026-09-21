@@ -1,0 +1,27 @@
+{
+  "name": "automation-tools",
+  "version": "0.1.0",
+  "description": "Reusable automation design guidance for n8n, Activepieces, and MCP servers.",
+  "author": {
+    "name": "eloriahu",
+    "url": "https://github.com/eloriahu"
+  },
+  "homepage": "https://github.com/eloriahu/ai-toolbox/tree/main/plugins/automation-tools",
+  "repository": "https://github.com/eloriahu/ai-toolbox",
+  "license": "MIT",
+  "keywords": ["automation", "n8n", "activepieces", "mcp"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Automation Tools",
+    "shortDescription": "Plan safe workflows for n8n and Activepieces.",
+    "longDescription": "Design automation integrations without bundling runtimes, credentials, or third-party workflow engines.",
+    "developerName": "eloriahu",
+    "category": "Productivity",
+    "capabilities": ["Read"],
+    "defaultPrompt": [
+      "Design an n8n workflow for this process.",
+      "Compare n8n and Activepieces for this automation.",
+      "Map this workflow to MCP tools safely."
+    ]
+  }
+}

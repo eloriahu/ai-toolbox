@@ -1,0 +1,27 @@
+{
+  "name": "quant-tools",
+  "version": "0.1.0",
+  "description": "Reusable quantitative-finance guidance for gs-quant and reference research frameworks.",
+  "author": {
+    "name": "eloriahu",
+    "url": "https://github.com/eloriahu"
+  },
+  "homepage": "https://github.com/eloriahu/ai-toolbox/tree/main/plugins/quant-tools",
+  "repository": "https://github.com/eloriahu/ai-toolbox",
+  "license": "MIT",
+  "keywords": ["quant", "gs-quant", "trading-agents", "fingpt"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Quant Tools",
+    "shortDescription": "Quant workflows with gs-quant and framework references.",
+    "longDescription": "Plan quantitative analysis using pinned gs-quant, with guarded integration paths for TradingAgents and FinGPT.",
+    "developerName": "eloriahu",
+    "category": "Finance",
+    "capabilities": ["Read"],
+    "defaultPrompt": [
+      "Design a reproducible quant analysis for this question.",
+      "Check whether gs-quant fits this workflow.",
+      "Evaluate TradingAgents or FinGPT for this use case."
+    ]
+  }
+}

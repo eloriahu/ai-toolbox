@@ -1,0 +1,28 @@
+{
+  "name": "research-tools",
+  "version": "0.1.0",
+  "description": "Reusable browser research and MCP discovery tools without vendored upstream source.",
+  "author": {
+    "name": "eloriahu",
+    "url": "https://github.com/eloriahu"
+  },
+  "homepage": "https://github.com/eloriahu/ai-toolbox/tree/main/plugins/research-tools",
+  "repository": "https://github.com/eloriahu/ai-toolbox",
+  "license": "MIT",
+  "keywords": ["research", "browser", "playwright", "mcp"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Research Tools",
+    "shortDescription": "Browser research with a pinned Playwright MCP server.",
+    "longDescription": "Run structured browser research through Playwright MCP and discover optional browser-use and community MCP resources.",
+    "developerName": "eloriahu",
+    "category": "Research",
+    "capabilities": ["Read", "Interactive"],
+    "defaultPrompt": [
+      "Research this topic with browser evidence.",
+      "Compare these sources and cite the strongest evidence.",
+      "Find a suitable MCP server for this task."
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "finance-tools",
+  "version": "0.1.0",
+  "description": "Reusable market-data workflows for OpenBB and yfinance without vendored upstream source.",
+  "author": {
+    "name": "eloriahu",
+    "url": "https://github.com/eloriahu"
+  },
+  "homepage": "https://github.com/eloriahu/ai-toolbox/tree/main/plugins/finance-tools",
+  "repository": "https://github.com/eloriahu/ai-toolbox",
+  "license": "MIT",
+  "keywords": ["finance", "market-data", "openbb", "yfinance"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Finance Tools",
+    "shortDescription": "Market-data workflows for OpenBB and yfinance.",
+    "longDescription": "Fetch and normalize market data with explicitly installed, pinned OpenBB and yfinance packages.",
+    "developerName": "eloriahu",
+    "category": "Finance",
+    "capabilities": ["Read"],
+    "defaultPrompt": [
+      "Fetch a reproducible market snapshot for this ticker.",
+      "Compare these securities using public market data.",
+      "Show which finance dependency this task needs."
+    ]
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-21",
+  "policy": "Exact git commits document the reviewed upstream snapshot. Package pins are used only where the toolbox provides an executable configuration or optional adapter.",
+  "upstreams": [
+    {
+      "repository": "microsoft/playwright",
+      "url": "https://github.com/microsoft/playwright",
+      "ref": "main",
+      "commit": "07f1a6154795f055f341b8972086533e8e48b36f",
+      "group": "research-tools",
+      "mode": "upstream-reference"
+    },
+    {
+      "repository": "microsoft/playwright-mcp",
+      "url": "https://github.com/microsoft/playwright-mcp",
+      "ref": "main",
+      "commit": "f1257a5a67aff872f947fae274759f7d54853862",
+      "package": "@playwright/mcp@0.0.82",
+      "group": "research-tools",
+      "mode": "configured"
+    },
+    {
+      "repository": "browser-use/browser-use",
+      "url": "https://github.com/browser-use/browser-use",
+      "ref": "main",
+      "commit": "d8110c5ff87ccba887aaa726cdb780f2f84bef8d",
+      "package": "browser-use==0.13.10",
+      "group": "research-tools",
+      "mode": "optional-package"
+    },
+    {
+      "repository": "OpenBB-finance/OpenBB",
+      "url": "https://github.com/OpenBB-finance/OpenBB",
+      "ref": "develop",
+      "commit": "3e071fcc2cd9f891cac6040ae60296dba76dab46",
+      "package": "openbb==4.7.2",
+      "group": "finance-tools",
+      "mode": "optional-package"
+    },
+    {
+      "repository": "ranaroussi/yfinance",
+      "url": "https://github.com/ranaroussi/yfinance",
+      "ref": "main",
+      "commit": "3d9d2f0cacb662bff689874cd6113bae3a30a885",
+      "package": "yfinance==1.7.0",
+      "group": "finance-tools",
+      "mode": "optional-package"
+    },
+    {
+      "repository": "goldmansachs/gs-quant",
+      "url": "https://github.com/goldmansachs/gs-quant",
+      "ref": "master",
+      "commit": "08bf3dfb463eb45ab562069fa802f3f5387b5b5a",
+      "package": "gs-quant==2.1.16",
+      "group": "quant-tools",
+      "mode": "optional-package"
+    },
+    {
+      "repository": "TauricResearch/TradingAgents",
+      "url": "https://github.com/TauricResearch/TradingAgents",
+      "ref": "main",
+      "commit": "2d17df8da1536c121e4d7395ac5a5dcec9e96d6f",
+      "group": "quant-tools",
+      "mode": "reference-only"
+    },
+    {
+      "repository": "AI4Finance-Foundation/FinGPT",
+      "url": "https://github.com/AI4Finance-Foundation/FinGPT",
+      "ref": "master",
+      "commit": "cefb3a26b84a3a4c57868f1ca48fb0d9723fd28e",
+      "group": "quant-tools",
+      "mode": "reference-only"
+    },
+    {
+      "repository": "n8n-io/n8n",
+      "url": "https://github.com/n8n-io/n8n",
+      "ref": "master",
+      "commit": "5729f343e700cb7e533afb4c6ebdb3284642e327",
+      "package": "n8n@2.39.8",
+      "group": "automation-tools",
+      "mode": "reference-only"
+    },
+    {
+      "repository": "activepieces/activepieces",
+      "url": "https://github.com/activepieces/activepieces",
+      "ref": "main",
+      "commit": "0dafe6db5be3afb09ace21f214b24b869e7889b1",
+      "group": "automation-tools",
+      "mode": "reference-only"
+    },
+    {
+      "repository": "modelcontextprotocol/servers",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "ref": "main",
+      "commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+      "group": "research-tools,automation-tools",
+      "mode": "reference-catalog"
+    },
+    {
+      "repository": "punkpeye/awesome-mcp-servers",
+      "url": "https://github.com/punkpeye/awesome-mcp-servers",
+      "ref": "main",
+      "commit": "cebc25d3600771fa78a3e70bb31807305ee50e53",
+      "group": "research-tools,automation-tools",
+      "mode": "reference-catalog"
+    }
+  ]
+}
