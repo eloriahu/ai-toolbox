@@ -1,6 +1,6 @@
 {
   "name": "finance-tools",
-  "version": "0.6.0+codex.20260921060034",
+  "version": "0.6.0+codex.20260922033953",
   "description": "Bloomberg-first market input normalization, field-level OpenBB fallbacks, reproducible snapshots and event calendars.",
   "author": {
     "name": "eloriahu",
