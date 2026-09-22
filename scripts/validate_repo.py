@@ -19,6 +19,7 @@ REQUIRED_UPSTREAMS = {
     "OpenBB-finance/OpenBB",
     "ranaroussi/yfinance",
     "anthropics/financial-services",
+    "xbtlin/ai-berkshire",
     "JerBouma/FinanceToolkit",
     "JerBouma/FinanceDatabase",
     "J-Quants/jquants-api-client-python",
@@ -49,6 +50,7 @@ EXPECTED_UPSTREAM_PLUGINS = {
     "OpenBB-finance/OpenBB": {"finance-tools"},
     "ranaroussi/yfinance": {"finance-tools"},
     "anthropics/financial-services": {"fundamental-tools"},
+    "xbtlin/ai-berkshire": {"fundamental-tools"},
     "JerBouma/FinanceToolkit": {"fundamental-tools"},
     "JerBouma/FinanceDatabase": {"fundamental-tools"},
     "J-Quants/jquants-api-client-python": {"fundamental-tools"},
@@ -222,6 +224,30 @@ def validate_plugin(root: Path, name: str, errors: list[str]) -> None:
             errors.append(f"{name}: skill name must match folder {skill_dir.name}.")
         if not frontmatter.get("description"):
             errors.append(f"{name}: {skill_dir.name} requires a description.")
+
+    if name == "fundamental-tools":
+        required_skills = {
+            "fundamental-research",
+            "equity-idea-generation",
+            "research-quality-review",
+        }
+        present_skills = {path.name for path in skills_root.iterdir() if path.is_dir()}
+        missing_skills = required_skills - present_skills
+        if missing_skills:
+            errors.append(
+                f"{name}: missing required skills {', '.join(sorted(missing_skills))}."
+            )
+        for skill_name in required_skills & present_skills:
+            metadata_path = skills_root / skill_name / "agents" / "openai.yaml"
+            if not metadata_path.is_file():
+                errors.append(f"{name}: {skill_name} requires agents/openai.yaml.")
+                continue
+            metadata = metadata_path.read_text(encoding="utf-8")
+            if "allow_implicit_invocation: true" not in metadata:
+                errors.append(f"{name}: {skill_name} must allow implicit invocation.")
+        for script_name in ("fundamental_pack.py", "idea_funnel.py", "research_review.py"):
+            if not (root / "scripts" / script_name).is_file():
+                errors.append(f"{name}: missing deterministic script {script_name}.")
 
 
 def parse_frontmatter(text: str) -> dict[str, str]:

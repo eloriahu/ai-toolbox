@@ -6,6 +6,7 @@ import tempfile
 import unittest
 from datetime import date, datetime, timezone
 from pathlib import Path
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -192,6 +193,19 @@ class SuppliedMarketDataTests(unittest.TestCase):
             [{"symbol": "^HSI", "date": datetime(2026, 9, 21, 13, 3), "close": 101}],
         )
         self.assertEqual(index_pack["quotes"][0]["timestamp"], "2026-09-21T13:03:00+08:00")
+
+    def test_hk_timestamp_has_fixed_offset_fallback_without_tz_database(self):
+        with mock.patch.object(
+            openbb_market_snapshot,
+            "ZoneInfo",
+            side_effect=openbb_market_snapshot.ZoneInfoNotFoundError("Asia/Hong_Kong"),
+        ):
+            rendered = openbb_market_snapshot._timestamp(
+                datetime(2026, 9, 21, 13, 3),
+                symbol="0700.HK",
+                market="HK",
+            )
+        self.assertEqual(rendered, "2026-09-21T13:03:00+08:00")
 
 
 class ReturnMetricTests(unittest.TestCase):

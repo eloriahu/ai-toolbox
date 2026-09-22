@@ -12,6 +12,10 @@ Upstream projects stay upstream. This repository contains reviewed manifests, ex
 | “Normalize this Bloomberg export and fill only missing fields” | `finance-tools` | A timestamped market pack with field-level provider lineage |
 | “Build a one-year market snapshot for 7203 JP” | `finance-tools` | Reproducible price history with currency, adjustment and missing-data metadata |
 | “Run a fundamental review of 9988 HK” | `fundamental-tools` | An auditable `fundamental_pack/v1` with financial history, ratios, valuation and data gaps |
+| “AI power demand is rising—where is the real bottleneck and which listed names matter?” | `fundamental-tools` | A causal, screenable `idea_funnel/v1` with ranked and explicitly rejected candidates |
+| “This stock is up—what are the second-order implications?” | `fundamental-tools` | Catalyst-linked supplier, peer, customer and substitution ideas with falsifiers |
+| “Did management deliver, and did our thesis actually change?” | `fundamental-tools` | A `research_review/v1` covering researchability, promises and fact/price/wording drift |
+| “Audit every important number before this report goes out” | `fundamental-tools` | Decimal-safe critical-field verification and a publication gate |
 | “Pull official Japanese financials for 7203” | `fundamental-tools` | J-Quants statement, detail and valuation records when credentials are configured |
 | “Fetch TSMC’s latest TWSE profitability data” | `fundamental-tools` | Official TWSE records with their original Chinese field names |
 | “Resolve this issuer across exchanges and identifiers” | `fundamental-tools` | FinanceDatabase security-master candidates for verification |
@@ -40,7 +44,7 @@ The toolbox handles collection, normalization and deterministic calculations. Th
 | --- | --- | --- |
 | `research-tools` | Source-evidence matrix and configured Playwright MCP launcher | `browser-use==0.13.10` |
 | `finance-tools` | Bloomberg input normalization, market-pack merging and event normalization | `openbb==4.7.2`, `yfinance==1.7.0` |
-| `fundamental-tools` | `fundamental_pack/v1`, ratio and DCF calculations, capability checks, direct TWSE access | FinanceToolkit, FinanceDatabase, J-Quants, OpenDART, EdgarTools and AKShare |
+| `fundamental-tools` | `fundamental_pack/v1`, `idea_funnel/v1`, `research_review/v1`, ratio/DCF calculations, source-quality controls, capability checks and direct TWSE access | FinanceToolkit, FinanceDatabase, J-Quants, OpenDART, EdgarTools and AKShare |
 | `quant-tools` | Return, volatility and drawdown calculations | `gs-quant==2.1.16` |
 | `automation-tools` | Workflow validation and approval-gated APAC radar examples | n8n or Activepieces when separately selected |
 
@@ -106,6 +110,37 @@ The calculator covers growth, margins, free cash flow, cash conversion, ROE, ROA
 
 Read [the fundamental architecture and license review](docs/fundamental-tools.md) for the full provider hierarchy and contract boundary.
 
+### Idea generation and research review
+
+The same plugin can automatically route a natural request to two additional skills; users do not need to remember a chain of commands.
+
+```text
+theme, event or verified stock move
+             ↓
+causal chain → supply-chain constraint → listed universe
+             ↓
+explicit sector/income screens + evidence lanes
+             ↓
+idea_funnel/v1: ranked, watched and rejected candidates
+
+research draft or prior thesis
+             ↓
+researchability + management promises + thesis drift + number audit
+             ↓
+research_review/v1: confidence limits and publication gate
+```
+
+`equity-idea-generation` is considered for bottleneck, theme-to-name and second-order implication questions. `research-quality-review` is considered for management delivery, thesis changes, source confidence and numerical audits. Both allow implicit invocation, but their descriptions are intentionally distinct so a simple fundamentals request does not launch the full idea-and-audit stack.
+
+The screen engine accepts explicit sector or user-supplied rules; it has no universal ROE, leverage, margin or payout cutoffs. It preserves `not_applicable` and `insufficient` states and supports income-durability inputs such as distribution coverage, free cash flow, leverage and payout history without generating position sizes or orders.
+
+```shell
+python plugins/fundamental-tools/scripts/idea_funnel.py idea-input.json --output idea-funnel.json --strict
+python plugins/fundamental-tools/scripts/research_review.py review-input.json --output research-review.json --strict
+```
+
+See the [`idea_funnel/v1` contract](plugins/fundamental-tools/references/idea-funnel.md) and [`research_review/v1` contract](plugins/fundamental-tools/references/research-review.md).
+
 ## Market-data workflow
 
 Normalize a Bloomberg export or a JSON transcription of a visible screenshot:
@@ -151,7 +186,7 @@ OpenDartReader 0.3.3 requires Python 3.13. Keep it in a separate environment whe
 
 [APAC Equity Desk](https://github.com/eloriahu/apac-equity-desk) consumes `fundamental_pack/v1` and market packs. It adds APAC source priority, market conventions, evidence-ranked catalyst work and desk writing.
 
-The optional Public Equity Investing plugin can own larger deliverables such as initiating coverage, comps, DCF workbooks, model updates and thesis trackers. `fundamental-tools` remains the source and calculation layer, so those workflows do not need a second set of provider adapters.
+The optional Public Equity Investing plugin can own larger deliverables such as initiating coverage, comps, DCF workbooks, model updates and thesis trackers. `fundamental-tools` remains the source, calculation, idea-funnel and research-control layer, so those workflows do not need a second set of provider adapters.
 
 The repositories share contracts, not source trees, submodules or hidden local paths. See [the APAC integration notes](docs/apac-equity-desk.md).
 

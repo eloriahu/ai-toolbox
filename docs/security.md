@@ -9,4 +9,7 @@
 - Prefer local optional finance packages when credentials or proprietary inputs are involved. Review data handling before using a hosted MCP or third-party proxy and do not send Bloomberg exports to one by default.
 - Capability reports may state that an environment variable is configured but must never print, log or persist its value.
 - Treat public-web adapters as unstable fallbacks. Preserve the underlying site, retrieval time and errors so a changed page cannot silently corrupt a model.
+- Record each source's direct upstream origin and independence group. Syndicated copies and summaries must not be counted as separate confirmation.
+- Idea funnels and research reviews are read-only. They must not produce or execute orders, change positions, infer personalized sizing or publish a report without separate authorization.
+- Required report audits fail closed: missing critical fields, unverifiable lineage and zero successful verification block publication readiness.
 - Rotate any credential that is accidentally committed, even if the commit is later removed.

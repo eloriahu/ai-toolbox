@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-21",
+  "generatedAt": "2026-09-22",
   "policy": "Exact git commits document the reviewed upstream snapshot. Package fields pin executable integrations, optional dependencies, or a reviewed reference candidate and never imply automatic installation.",
   "upstreams": [
     {
@@ -60,6 +60,16 @@
       "group": "fundamental-tools",
       "classification": "reference-only",
       "mode": "workflow-reference"
+    },
+    {
+      "repository": "xbtlin/ai-berkshire",
+      "url": "https://github.com/xbtlin/ai-berkshire",
+      "ref": "main",
+      "commit": "c2508c23b4835d3e5460f113364d25f66d23782b",
+      "group": "fundamental-tools",
+      "classification": "reference-only",
+      "mode": "workflow-pattern-reference",
+      "license": "MIT"
     },
     {
       "repository": "JerBouma/FinanceToolkit",

@@ -1,11 +1,13 @@
 ---
 name: fundamental-research
-description: Build auditable public-company fundamental packs, normalize reported financials, calculate transparent ratios and DCF scenarios, and route optional APAC filing adapters. Use for listed-company fundamentals, coverage work, model updates, valuation, peer preparation, or what-changed analysis; not for private-company diligence or personalized financial advice.
+description: Build auditable evidence and calculation packs for listed companies, including normalized statements, transparent ratios, valuation-scenario components, and optional APAC filing adapters. Use for source normalization, financial updates, metric calculation, or evidence needed inside a broader equity workflow; when Public Equity Investing is available, do not own the full initiation, model, comps, pitch, or investment-memo artifact.
 ---
 
 # Fundamental Research
 
 Build the evidence and calculation layer before drafting an investment view. This skill owns source normalization, provenance, calculation transparency and `fundamental_pack/v1`; it does not silently turn a data gap into an estimate.
+
+Use the narrowest automatic route that answers the request. If the core task is theme-to-name, bottleneck or second-order idea generation, use `equity-idea-generation`. If it is management delivery, thesis drift, researchability or report-number verification, use `research-quality-review`. A request about an observed price move should establish the move and catalyst before a full fundamental pack is added only where it can discriminate among explanations or implications.
 
 ## Workflow
 

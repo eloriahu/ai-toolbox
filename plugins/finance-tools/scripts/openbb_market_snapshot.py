@@ -8,7 +8,7 @@ import re
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
 APAC_MARKETS = {
@@ -40,6 +40,31 @@ ZONE_BY_MARKET = {
     "SG": "Asia/Singapore", "TH": "Asia/Bangkok", "TW": "Asia/Taipei",
     "HKG": "Asia/Hong_Kong", "JPX": "Asia/Tokyo", "KSC": "Asia/Seoul",
 }
+
+# Windows Python installations do not always bundle the IANA timezone database.
+# These markets do not observe daylight saving, so a fixed offset is an honest
+# fallback. Sydney and Auckland intentionally have no fixed fallback: a naive
+# observation stays naive rather than being assigned the wrong seasonal offset.
+FIXED_OFFSET_MINUTES = {
+    "Asia/Bangkok": 7 * 60,
+    "Asia/Hong_Kong": 8 * 60,
+    "Asia/Jakarta": 7 * 60,
+    "Asia/Kolkata": 5 * 60 + 30,
+    "Asia/Kuala_Lumpur": 8 * 60,
+    "Asia/Seoul": 9 * 60,
+    "Asia/Shanghai": 8 * 60,
+    "Asia/Singapore": 8 * 60,
+    "Asia/Taipei": 8 * 60,
+    "Asia/Tokyo": 9 * 60,
+}
+
+
+def _timezone_for(zone_name: str):
+    try:
+        return ZoneInfo(zone_name)
+    except ZoneInfoNotFoundError:
+        offset = FIXED_OFFSET_MINUTES.get(zone_name)
+        return timezone(timedelta(minutes=offset)) if offset is not None else None
 
 
 def _record(value: Any) -> dict[str, Any]:
@@ -75,7 +100,9 @@ def _timestamp(value: Any, *, symbol: str | None, market: str | None) -> str | N
         if symbol:
             zone_name = next((zone for suffix, zone in ZONE_BY_SUFFIX.items() if symbol.upper().endswith(suffix)), zone_name)
         if zone_name:
-            value = value.replace(tzinfo=ZoneInfo(zone_name))
+            resolved_zone = _timezone_for(zone_name)
+            if resolved_zone is not None:
+                value = value.replace(tzinfo=resolved_zone)
     return value.isoformat()
 
 

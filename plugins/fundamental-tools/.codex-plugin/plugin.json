@@ -1,7 +1,7 @@
 {
   "name": "fundamental-tools",
-  "version": "0.1.0+codex.2026092101",
-  "description": "Auditable public-equity fundamentals, valuation scenarios and APAC filing adapters.",
+  "version": "0.2.0+codex.20260922031830",
+  "description": "Auditable public-equity fundamentals, idea funnels, research controls and APAC filing adapters.",
   "author": {
     "name": "eloriahu",
     "url": "https://github.com/eloriahu"
@@ -20,7 +20,7 @@
   "interface": {
     "displayName": "Fundamental Tools",
     "shortDescription": "Auditable statements, ratios, valuation and filing adapters.",
-    "longDescription": "Build a provenance-rich fundamental_pack/v1 from official filings, user data and optional finance libraries; calculate transparent operating metrics and DCF scenarios; and connect Japan, Korea, Taiwan, China/HK and US filing sources without hard dependencies.",
+    "longDescription": "Build provenance-rich fundamental, idea-funnel and research-review contracts from official filings, user data and optional finance libraries; calculate transparent operating metrics and DCF scenarios; rank traceable equity-research candidates; and audit research quality without hard dependencies.",
     "developerName": "eloriahu",
     "category": "Finance",
     "capabilities": [
@@ -29,8 +29,8 @@
     ],
     "defaultPrompt": [
       "Build an auditable fundamental review for this listed company.",
-      "Normalize these statements and show what changed.",
-      "Run valuation scenarios and identify the thesis falsifiers."
+      "Trace this theme or stock move into evidence-backed follow-on ideas.",
+      "Audit this research for management delivery, thesis drift and critical-number errors."
     ]
   }
 }

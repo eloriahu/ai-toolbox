@@ -1,0 +1,6 @@
+interface:
+  display_name: "Research Quality Review"
+  short_description: "Audit evidence, thesis drift and key numbers"
+  default_prompt: "Use $research-quality-review to test this equity research for evidence gaps, thesis drift and critical-number errors."
+policy:
+  allow_implicit_invocation: true

@@ -10,6 +10,7 @@ The lock file uses five classifications: runtime dependency, MCP integration, op
 | `OpenBB-finance/OpenBB` | `finance-tools` | Optional dependency | Broader provider and standardized-query layer; install only for tasks that need it. |
 | `ranaroussi/yfinance` | `finance-tools` | Optional dependency | Powers the versioned, provenance-rich market snapshot adapter. |
 | `anthropics/financial-services` | `fundamental-tools` | Reference-only | Workflow patterns for coverage, earnings, model updates, comps and DCF; Claude-specific and US-centric constraints are not imported. |
+| `xbtlin/ai-berkshire` | `fundamental-tools` | Reference-only | MIT-licensed workflow patterns for causal idea funnels, management delivery, thesis drift and functional multi-agent research; no code, investor personas or performance claims are embedded. |
 | `JerBouma/FinanceToolkit` | `fundamental-tools` | Optional dependency | Local calculation and provider-routing engine; underlying source lineage remains explicit. |
 | `JerBouma/FinanceDatabase` | `fundamental-tools` | Optional dependency | Cross-market issuer/ticker/identifier discovery, not a live fundamental source. |
 | `J-Quants/jquants-api-client-python` | `fundamental-tools` | Optional dependency | Official Japan API client for financial summaries, details and valuation. Requires a plan and API key. |
@@ -28,7 +29,7 @@ The lock file uses five classifications: runtime dependency, MCP integration, op
 
 The toolbox does not provision or manage an external service. Optional packages are not installed with a plugin, and reference-only projects are not vendored or executed. Exact source snapshots are recorded in `upstream-lock.json`.
 
-`fundamental-tools/scripts/provider_adapters.py` produces a raw, provenance-rich adapter envelope. `fundamental-tools/scripts/fundamental_pack.py` is the separate normalization/calculation boundary. Keeping collection and calculation separate prevents an aggregator or calculation library from silently becoming the authoritative filing source.
+`fundamental-tools/scripts/provider_adapters.py` produces a raw, provenance-rich adapter envelope. `fundamental_pack.py`, `idea_funnel.py` and `research_review.py` are separate deterministic contract boundaries. Keeping collection, ranking and review mechanics separate prevents an aggregator, agent narrative or calculation library from silently becoming the authoritative source.
 
 `plugins/research-tools/.mcp.json` is the only directly executable integration. Its launcher uses `npx`, `pnpm`, or Codex's bundled package runner in that order. On first use, the selected runner may download the pinned package.
 

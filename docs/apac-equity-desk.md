@@ -24,13 +24,13 @@ Codex user/workspace
 - `apac-equity-desk` remains usable with user-supplied Bloomberg packs and its dependency-free calculation helpers when no toolbox plugin is available.
 - `research-tools` may collect public filings and web evidence, but the desk retains its APAC source hierarchy, causal standards and house style.
 - `finance-tools` normalizes Bloomberg exports and screenshot transcriptions and may fill explicit market-data gaps through OpenBB; provider output must still be mapped into the desk contract with field-level lineage and may not silently replace a fresh conflicting observation.
-- `fundamental-tools` produces `fundamental_pack/v1` from traceable statements, optional country adapters and transparent calculations. The desk owns APAC interpretation, house style, causal wording and final source verification.
+- `fundamental-tools` produces `fundamental_pack/v1`, `idea_funnel/v1` and `research_review/v1` from traceable sources and deterministic mechanics. The desk owns APAC interpretation, house style, observed-move verification, causal wording and final editorial judgment.
 - `quant-tools` may perform reusable statistics and risk calculations. APAC-specific peer baskets, A/H conventions and market mappings remain in the desk.
 - `automation-tools` may prepare research packs or drafts. It must not publish externally, alter alerts/watchlists or perform brokerage mutations without a separately authorized workflow.
 - `finance-tools/scripts/event_calendar.py` normalizes an already sourced event set. Event discovery, APAC relevance and house presentation remain desk responsibilities.
 - `automation-tools/examples/apac-sector-radar-workflow.json` defines the portable schedule/read/rank/local-write/approval flow; the desk owns `topic_radar.py`, sector baskets and the causal investigation.
 - Missing optional capabilities produce a declared data gap or a reduced-scope draft, not an installation attempt or invented result.
-- The installed Public Equity Investing plugin may own broader initiations, model updates, comps, DCFs or thesis trackers. `fundamental-tools` remains the reusable source/calculation layer, and APAC Equity Desk remains the APAC note owner.
+- The installed Public Equity Investing plugin may own broader initiations, model updates, comps, DCFs or thesis trackers. `fundamental-tools` remains the reusable source/calculation/idea-control layer, and APAC Equity Desk remains the APAC note owner.
 
 This avoids duplicated source and lets future US-equity, personal research, and quant projects use the same integrations. It also allows toolbox updates without changing the desk repository.
 
