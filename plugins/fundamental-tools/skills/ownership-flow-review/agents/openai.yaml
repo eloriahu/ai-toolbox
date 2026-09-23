@@ -1,0 +1,6 @@
+interface:
+  display_name: "Ownership and Flow Review"
+  short_description: "Separate investor flows from disclosed ownership"
+  default_prompt: "Use $ownership-flow-review to assess these investor flows and disclosed holdings."
+policy:
+  allow_implicit_invocation: true

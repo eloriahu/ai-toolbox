@@ -1,0 +1,6 @@
+interface:
+  display_name: "Expectations Bridge"
+  short_description: "Compare like-for-like dated estimates"
+  default_prompt: "Use $expectations-bridge to compare these two dated estimate snapshots."
+policy:
+  allow_implicit_invocation: true

@@ -213,6 +213,44 @@
       "group": "research-tools,automation-tools",
       "classification": "reference-only",
       "mode": "reference-catalog"
+    },
+    {
+      "repository": "docling-project/docling",
+      "url": "https://github.com/docling-project/docling",
+      "ref": "main",
+      "commit": "fc4aa7fb780847fde32c3b1b60780e1ddec3fd6e",
+      "package": "docling==2.130.0",
+      "group": "fundamental-tools",
+      "classification": "optional-dependency",
+      "mode": "optional-local-filing-extraction"
+    },
+    {
+      "repository": "sharebook-kr/pykrx",
+      "url": "https://github.com/sharebook-kr/pykrx",
+      "ref": "master",
+      "commit": "50f73e23a511ab1efb731aceaaa1643ec4a9f8bc",
+      "package": "pykrx==1.2.9",
+      "group": "fundamental-tools",
+      "classification": "optional-dependency",
+      "mode": "optional-korea-investor-flow"
+    },
+    {
+      "repository": "FinMind/FinMind-MCP",
+      "url": "https://github.com/FinMind/FinMind-MCP",
+      "ref": "master",
+      "commit": "54db6c80d6fa6f7d3aff0a4cf5ff27b4d28c9b52",
+      "group": "fundamental-tools",
+      "classification": "reference-only",
+      "mode": "reference-for-direct-finmind-rest-adapter"
+    },
+    {
+      "repository": "carrotly-ai/disclosures",
+      "url": "https://github.com/carrotly-ai/disclosures",
+      "ref": "main",
+      "commit": "833fa585252160d815d315a7747d4cb327c01ed0",
+      "group": "fundamental-tools",
+      "classification": "reference-only",
+      "mode": "optional-configured-disclosure-lookup-only"
     }
   ]
 }

@@ -35,6 +35,10 @@ REQUIRED_UPSTREAMS = {
     "activepieces/activepieces",
     "modelcontextprotocol/servers",
     "punkpeye/awesome-mcp-servers",
+    "docling-project/docling",
+    "sharebook-kr/pykrx",
+    "FinMind/FinMind-MCP",
+    "carrotly-ai/disclosures",
 }
 ALLOWED_CLASSIFICATIONS = {
     "runtime-dependency",
@@ -66,6 +70,10 @@ EXPECTED_UPSTREAM_PLUGINS = {
     "activepieces/activepieces": {"automation-tools"},
     "modelcontextprotocol/servers": {"research-tools", "automation-tools"},
     "punkpeye/awesome-mcp-servers": {"research-tools", "automation-tools"},
+    "docling-project/docling": {"fundamental-tools"},
+    "sharebook-kr/pykrx": {"fundamental-tools"},
+    "FinMind/FinMind-MCP": {"fundamental-tools"},
+    "carrotly-ai/disclosures": {"fundamental-tools"},
 }
 
 

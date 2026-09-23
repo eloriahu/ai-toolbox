@@ -1,0 +1,6 @@
+interface:
+  display_name: "Filing Change Radar"
+  short_description: "Compare dated filings with page-level evidence"
+  default_prompt: "Use $filing-change-radar to compare these two company filings and flag verified changes."
+policy:
+  allow_implicit_invocation: true

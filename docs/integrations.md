@@ -19,6 +19,10 @@ The lock file uses five classifications: runtime dependency, MCP integration, op
 | `NanookAI/twse-api` | `fundamental-tools` | Reference-only | Reviewed endpoint/convention reference; the toolbox calls the official TWSE OpenAPI directly. |
 | `dgunning/edgartools` | `fundamental-tools` | Optional dependency | SEC filing and XBRL access for US issuers and APAC ADRs. |
 | `akfamily/akshare` | `fundamental-tools` | Optional dependency | China/HK public-web fallback; upstream website lineage and endpoint-drift warnings are retained. |
+| `docling-project/docling` | `fundamental-tools` | Optional dependency | Local PDF/Office extraction with page-linked text for filing-change review; not installed automatically. |
+| `sharebook-kr/pykrx` | `fundamental-tools` | Optional dependency | Korea investor net-trading-value adapter; scraped figures require source and terms checks, and some KRX endpoints may require credentials. |
+| `FinMind/FinMind-MCP` | `fundamental-tools` | Reference-only | Reviewed Taiwan dataset route; the toolbox uses a direct, token-gated FinMind REST adapter, not the MCP server. |
+| `carrotly-ai/disclosures` | `fundamental-tools` | Reference-only | Optional configured lookup route for official filings; not bundled or started by the toolbox, and jurisdiction terms must be checked. |
 | `TauricResearch/TradingAgents` | `finance-tools` | Reference-only | Experimental financial-research framework; no models, data stack or runtime are embedded. |
 | `AI4Finance-Foundation/FinGPT` | `finance-tools` | Reference-only | Optional financial-NLP framework; no model weights or runtime are embedded. |
 | `goldmansachs/gs-quant` | `quant-tools` | Optional dependency | Advanced analytics when credentials and data access are configured externally. |
@@ -29,7 +33,7 @@ The lock file uses five classifications: runtime dependency, MCP integration, op
 
 The toolbox does not provision or manage an external service. Optional packages are not installed with a plugin, and reference-only projects are not vendored or executed. Exact source snapshots are recorded in `upstream-lock.json`.
 
-`fundamental-tools/scripts/provider_adapters.py` produces a raw, provenance-rich adapter envelope. `fundamental_pack.py`, `idea_funnel.py` and `research_review.py` are separate deterministic contract boundaries. Keeping collection, ranking and review mechanics separate prevents an aggregator, agent narrative or calculation library from silently becoming the authoritative source.
+`fundamental-tools/scripts/provider_adapters.py` produces a raw, provenance-rich adapter envelope. `fundamental_pack.py`, `idea_funnel.py`, `research_review.py`, `filing_change.py`, `expectations_bridge.py` and `ownership_flow.py` are separate deterministic contract boundaries. Keeping collection, ranking and review mechanics separate prevents an aggregator, agent narrative or calculation library from silently becoming the authoritative source.
 
 `plugins/research-tools/.mcp.json` is the only directly executable integration. Its launcher uses `npx`, `pnpm`, or Codex's bundled package runner in that order. On first use, the selected runner may download the pinned package.
 
