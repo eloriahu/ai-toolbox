@@ -15,6 +15,7 @@ Upstream projects stay upstream. This repository contains reviewed manifests, ex
 | “AI power demand is rising—where is the real bottleneck and which listed names matter?” | `fundamental-tools` | A causal, screenable `idea_funnel/v1` with ranked and explicitly rejected candidates |
 | “This stock is up—what are the second-order implications?” | `fundamental-tools` | Catalyst-linked supplier, peer, customer and substitution ideas with falsifiers |
 | “Did management deliver, and did our thesis actually change?” | `fundamental-tools` | A `research_review/v1` covering researchability, promises and fact/price/wording drift |
+| “Challenge the Street's consensus view on this stock” | `fundamental-tools` | A `consensus_challenge/v1` that checks genuine thesis agreement, shared premises, counterevidence and what the sampled reports missed |
 | “Audit every important number before this report goes out” | `fundamental-tools` | Decimal-safe critical-field verification and a publication gate |
 | “What changed between these two annual reports?” | `fundamental-tools` | A page- and source-linked `filing_change/v1` review queue; optional Docling extraction for local PDFs |
 | “How did FY27 consensus change after results?” | `fundamental-tools` | An exact-decimal `expectations_bridge/v1` that keeps different bases, periods and currencies apart |
@@ -48,11 +49,13 @@ The toolbox handles collection, normalization and deterministic calculations. Th
 | --- | --- | --- |
 | `research-tools` | Source-evidence matrix and configured Playwright MCP launcher | `browser-use==0.13.10` |
 | `finance-tools` | Bloomberg input normalization, market-pack merging and event normalization | `openbb==4.7.2`, `yfinance==1.7.0` |
-| `fundamental-tools` | `fundamental_pack/v1`, `idea_funnel/v1`, `research_review/v1`, filing/expectations/ownership-flow bridges, ratio/DCF calculations, source-quality controls, capability checks and direct TWSE/FinMind access | FinanceToolkit, FinanceDatabase, J-Quants, OpenDART, EdgarTools, AKShare, Docling and pykrx |
+| `fundamental-tools` | Fundamental, idea-funnel, research-review and consensus-challenge packs; filing/expectations/ownership-flow bridges; ratio/DCF calculations, source-quality controls, capability checks and direct TWSE/FinMind access | FinanceToolkit, FinanceDatabase, J-Quants, OpenDART, EdgarTools, AKShare, Docling and pykrx |
 | `quant-tools` | Return, volatility and drawdown calculations | `gs-quant==2.1.16` |
 | `automation-tools` | Workflow validation and approval-gated APAC radar examples | n8n or Activepieces when separately selected |
 
 Reference-only repositories are pinned and documented but never installed, executed or copied into the toolbox. See [the integration matrix](docs/integrations.md) and [exact upstream locks](upstream-lock.json).
+
+Consensus challenge counts distinct major research-house groups agreeing on the *same mechanism and horizon*, not merely issuing the same rating. Without a documented house universe or accessible report text it labels agreement as observed-only. It flags weaknesses for source review; it cannot establish that “nobody else spotted” an issue.
 
 Filing lookup through disclosures MCP is a configured, optional route—not a bundled server. Docling and pykrx are separate optional packages; FinMind requires the user's token, and some current KRX endpoints may require the user's own KRX login. A flow report is not a beneficial-ownership register or proof of a price catalyst.
 
@@ -145,7 +148,7 @@ python plugins/fundamental-tools/scripts/idea_funnel.py idea-input.json --output
 python plugins/fundamental-tools/scripts/research_review.py review-input.json --output research-review.json --strict
 ```
 
-See the [`idea_funnel/v1` contract](plugins/fundamental-tools/references/idea-funnel.md) and [`research_review/v1` contract](plugins/fundamental-tools/references/research-review.md).
+See the [`idea_funnel/v1` contract](plugins/fundamental-tools/references/idea-funnel.md), [`research_review/v1` contract](plugins/fundamental-tools/references/research-review.md) and [`consensus_challenge/v1` contract](plugins/fundamental-tools/references/consensus-challenge.md).
 
 ## Market-data workflow
 

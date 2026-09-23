@@ -238,6 +238,7 @@ def validate_plugin(root: Path, name: str, errors: list[str]) -> None:
             "fundamental-research",
             "equity-idea-generation",
             "research-quality-review",
+            "consensus-challenge",
         }
         present_skills = {path.name for path in skills_root.iterdir() if path.is_dir()}
         missing_skills = required_skills - present_skills
@@ -253,7 +254,7 @@ def validate_plugin(root: Path, name: str, errors: list[str]) -> None:
             metadata = metadata_path.read_text(encoding="utf-8")
             if "allow_implicit_invocation: true" not in metadata:
                 errors.append(f"{name}: {skill_name} must allow implicit invocation.")
-        for script_name in ("fundamental_pack.py", "idea_funnel.py", "research_review.py"):
+        for script_name in ("fundamental_pack.py", "idea_funnel.py", "research_review.py", "consensus_challenge.py"):
             if not (root / "scripts" / script_name).is_file():
                 errors.append(f"{name}: missing deterministic script {script_name}.")
 

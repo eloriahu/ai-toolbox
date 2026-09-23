@@ -1,0 +1,6 @@
+interface:
+  display_name: "Consensus Challenge"
+  short_description: "Stress-test a shared sell-side equity thesis"
+  default_prompt: "Use $consensus-challenge to test the Street's common thesis on this listed company."
+policy:
+  allow_implicit_invocation: true
